@@ -1,18 +1,10 @@
 package org.csid.autobody.controller;
 
 import org.csid.autobody.dto.VehiculeDto;
-import org.csid.autobody.entity.Vehicule;
-import org.csid.autobody.exception.IdMismatchException;
-import org.csid.autobody.mapper.VehiculeMapper;
 import org.csid.autobody.services.VehiculeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -31,7 +23,7 @@ public class VehiculeContoller {
         return vehiculeService.getAll();
     }
 
-    @GetMapping("{id}")
+   /* @GetMapping("{id}")
     public VehiculeDto getEmployee(@PathVariable Long id) {
         return VehiculeMapper.toVehiculeDto(vehiculeService.get(id));
     }
@@ -54,15 +46,11 @@ public class VehiculeContoller {
         return ResponseEntity.created(uri).body(VehiculeMapper.toVehiculeDto(newVehicule));
     }
 
-    /*
-    Envoie une liste d'utilisateur à créer
-     */
-    @PostMapping("liste")
-    public ResponseEntity<List<VehiculeDto>> createEmployees(@RequestBody List<VehiculeDto> vehiculesDto){
+
+/*    public ResponseEntity<List<VehiculeDto>> createEmployees(@RequestBody List<VehiculeDto> vehiculesDto){
 
         vehiculesDto.stream().forEach(vehiculeDto -> {
             try {
-                createVehicule(vehiculeDto);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -103,4 +91,6 @@ public class VehiculeContoller {
     public void deleteVehicule(@PathVariable Long id) {
         vehiculeService.delete(id);
     }
+
+    */
 }

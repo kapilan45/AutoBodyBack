@@ -1,15 +1,11 @@
 package org.csid.autobody.services;
 
+import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.VehiculeDto;
-import org.csid.autobody.entity.Vehicule;
 import org.csid.autobody.entity.VehiculeEntity;
-import org.csid.autobody.exception.ObjectNotFoundException;
-import org.csid.autobody.mapper.VehiculeMapper;
 import org.csid.autobody.repository.VehiculeRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-import javax.persistence.PersistenceException;
 
 @Service
 public class VehiculeService {
@@ -20,7 +16,12 @@ public class VehiculeService {
         this.vehiculeRepository = vehiculeRepository;
     }
 
-    public Vehicule get(Long id){
+    public List<VehiculeDto> getAll() {
+        List<VehiculeEntity> all = vehiculeRepository.findAll();
+        return DtoConverter.mapAsList(all, VehiculeDto.class);
+    }
+
+   /* TODO public Vehicule get(Long id){
        try{
            return VehiculeMapper.toVehicule(vehiculeRepository.getOne(id));
        } catch(PersistenceException ex){
@@ -32,10 +33,7 @@ public class VehiculeService {
         return VehiculeMapper.toVehicule(vehiculeRepository.save(VehiculeMapper.toVehicule(vehicule)));
     }
 
-    public List<VehiculeDto> getAll() {
-        List<Vehicule> vehicules = VehiculeMapper.toVehiculeList(vehiculeRepository.findAll());
-        return VehiculeMapper.toEmployeesDtoList(vehicules);
-    }
+
 
     public Vehicule update(Vehicule vehicule) {
         if(!vehiculeRepository.existsById(vehicule.getId())) {
@@ -62,6 +60,6 @@ public class VehiculeService {
         if(vehiculeRepository.existsById(id)) {
             vehiculeRepository.deleteById(id);
         }
-    }
+    }*/
 
 }

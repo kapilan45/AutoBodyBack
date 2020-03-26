@@ -14,18 +14,7 @@ public class VehiculeDto {
     private double prix;
     private String image;
 
-    public VehiculeDto(Long id, String marque, String modele, String categorie, String energie, int kilometrage, int annee, int stage, String localisation, double prix, String image) {
-        this.id = id;
-        this.marque = marque;
-        this.modele = modele;
-        this.categorie = categorie;
-        this.energie = energie;
-        this.kilometrage = kilometrage;
-        this.annee = annee;
-        this.stage = stage;
-        this.localisation = localisation;
-        this.prix = prix;
-        this.image = image;
+    public VehiculeDto() {
     }
 
     public Long getId(){
@@ -132,84 +121,4 @@ public class VehiculeDto {
                 '}';
     }
 
-    public static final class VehiculeDtoBuilder {
-
-        private Long id;
-        private String marque;
-        private String modele;
-        private String categorie;
-        private String energie;
-        private int kilometrage;
-        private int annee;
-        private int stage;
-        private String localisation;
-        private double prix;
-        private String image;
-
-        private VehiculeDtoBuilder(){
-        }
-
-        public static VehiculeDtoBuilder create(){
-            return new VehiculeDtoBuilder();
-        }
-
-        public VehiculeDtoBuilder withId(Long id){
-            this.id = id;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withMarque(String marque){
-            this.marque = marque;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withCategorie(String categorie){
-            this.categorie = categorie;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withEnergie(String energie){
-            this.energie = energie;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withKilometrage(int kilometrage){
-            this.kilometrage = kilometrage;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withAnnee(int annee){
-            this.annee = annee;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withStage(int stage){
-            this.stage = stage;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withLocalisation(String localisation){
-            this.localisation = localisation;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withPrix (double prix){
-            this.prix = prix;
-            return this;
-        }
-
-     public VehiculeDtoBuilder withImage (String image){
-            this.image = image;
-            return this;
-        }
-
-        public VehiculeDtoBuilder withModele (String modele){
-            this.modele = modele;
-            return this;
-        }
-
-        public VehiculeDto build(){
-            return  new VehiculeDto(id,marque, modele, categorie,energie,kilometrage,annee,stage,localisation,prix, image);
-        }
-    }
 }
