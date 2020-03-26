@@ -21,7 +21,7 @@ public class VehiculeEntity {
     private String energie;
 
     @Column(name = "kilometrage")
-    private String kilometrage;
+    private int kilometrage;
 
     @Column(name = "annee")
     private int annee;
@@ -71,11 +71,11 @@ public class VehiculeEntity {
         this.energie = energie;
     }
 
-    public String getKilometrage() {
+    public int getKilometrage() {
         return kilometrage;
     }
 
-    public void setKilometrage(String kilometrage) {
+    public void setKilometrage(int kilometrage) {
         this.kilometrage = kilometrage;
     }
 
@@ -116,12 +116,13 @@ public class VehiculeEntity {
         private Long id;
 
         private String marque;
+        private String modele;
 
         private String categorie;
 
         private String energie;
 
-        private String kilometrage;
+        private int kilometrage;
 
         private int annee;
 
@@ -130,6 +131,7 @@ public class VehiculeEntity {
         private String localisation;
 
         private double prix;
+        private String image;
 
         private VehiculeEntityBuilder(){}
 
@@ -157,7 +159,7 @@ public class VehiculeEntity {
             return this;
         }
 
-        public VehiculeEntityBuilder withKilometrage(String kilometrage){
+        public VehiculeEntityBuilder withKilometrage(int kilometrage){
             this.kilometrage = kilometrage;
             return this;
         }
@@ -179,6 +181,16 @@ public class VehiculeEntity {
 
         public VehiculeEntityBuilder withPrix(double prix){
             this.prix = prix;
+            return this;
+        }
+
+        public VehiculeEntityBuilder withModele(String modele){
+            this.modele = modele;
+            return this;
+        }
+
+        public VehiculeEntityBuilder withImage(String image){
+            this.image = image;
             return this;
         }
 

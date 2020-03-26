@@ -3,26 +3,21 @@ package org.csid.autobody.entity;
 public class Vehicule {
 
     private Long id;
-
     private String marque;
-
+    private String modele;
     private String categorie;
-
     private String energie;
-
-    private String kilometrage;
-
+    private int kilometrage;
     private int annee;
-
     private int stage;
-
     private String localisation;
-
     private double prix;
+    private String image;
 
-    public Vehicule(Long id, String marque, String categorie, String energie, String kilometrage, int annee, int stage, String localisation, double prix) {
+    public Vehicule(Long id, String marque, String modele, String categorie, String energie, int kilometrage, int annee, int stage, String localisation, double prix, String image) {
         this.id = id;
         this.marque = marque;
+        this.modele = modele;
         this.categorie = categorie;
         this.energie = energie;
         this.kilometrage = kilometrage;
@@ -30,6 +25,7 @@ public class Vehicule {
         this.stage = stage;
         this.localisation = localisation;
         this.prix = prix;
+        this.image = image;
     }
 
     public Long getId() {
@@ -64,11 +60,11 @@ public class Vehicule {
         this.energie = energie;
     }
 
-    public String getKilometrage() {
+    public int getKilometrage() {
         return kilometrage;
     }
 
-    public void setKilometrage(String kilometrage) {
+    public void setKilometrage(int kilometrage) {
         this.kilometrage = kilometrage;
     }
 
@@ -138,15 +134,15 @@ public class Vehicule {
 
         private Long id;
         private String marque;
+        private String modele;
         private String categorie;
         private String energie;
-        private String kilometrage;
+        private int kilometrage;
         private int annee;
         private int stage;
         private String localisation;
         private double prix;
-
-        private VehiculeBuilder(){}
+        private String image;
 
         public static VehiculeBuilder create(){
             return new VehiculeBuilder();
@@ -172,7 +168,7 @@ public class Vehicule {
             return this;
         }
 
-        public VehiculeBuilder withKilometrage(String kilometrage){
+        public VehiculeBuilder withKilometrage(int kilometrage){
             this.kilometrage = kilometrage;
             return this;
         }
@@ -197,8 +193,18 @@ public class Vehicule {
             return this;
         }
 
+        public VehiculeBuilder withModele(String modele){
+            this.modele = modele;
+            return this;
+        }
+
+        public VehiculeBuilder withImage(String image){
+            this.image = image;
+            return this;
+        }
+
         public Vehicule build(){
-            return new Vehicule(id,marque,categorie,energie,kilometrage,annee,stage,localisation,prix);
+            return new Vehicule(id,marque, modele, categorie,energie,kilometrage,annee,stage,localisation,prix, image);
         }
     }
 }
