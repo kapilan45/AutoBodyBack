@@ -11,7 +11,7 @@ import  java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
+/*
     private final JdbcUserDetailsManager jdbcUserDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
@@ -30,4 +30,6 @@ public class UserController {
         jdbcUserDetailsManager.changePassword(passwordUpdate.getOldPassword(),passwordEncoder.encode(passwordUpdate.getNewPassword()));
 
     }
+    */
+
 }

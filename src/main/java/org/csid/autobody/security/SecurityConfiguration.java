@@ -1,6 +1,8 @@
 package org.csid.autobody.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,15 +17,16 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    DataSource dataSource;
+    //DataSource dataSource;
 
-    public SecurityConfiguration(DataSource dataSource) {
+    /*public SecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
+    }*/
 
 
     @Override
@@ -39,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.headers().frameOptions().sameOrigin();
         auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));
     }
-
+/*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -52,17 +55,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 );
         auth.userDetailsService(jdbcUserDetailsManager());
     }
-
+*/
    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+/*
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(){
         JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
         userDetailsService.setDataSource(dataSource);
         return userDetailsService;
     }
+*/
+
 }
 
