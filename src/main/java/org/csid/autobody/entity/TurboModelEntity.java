@@ -3,15 +3,18 @@ package org.csid.autobody.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Energy")
-public class EnergyEntity {
+@Table(name = "Turbo_model")
+public class TurboModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
-    private Long name;
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TurboMarkEntity turboMarkEntity;
 
     @OneToMany(fetch = FetchType.LAZY)
     private SpecificationsEntity specificationsEntity;
@@ -24,19 +27,19 @@ public class EnergyEntity {
         this.id = id;
     }
 
-    public Long getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Long name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public SpecificationsEntity getSpecificationsEntity() {
-        return specificationsEntity;
+    public TurboMarkEntity getTurboMarkEntity() {
+        return turboMarkEntity;
     }
 
-    public void setSpecificationsEntity(SpecificationsEntity specificationsEntity) {
-        this.specificationsEntity = specificationsEntity;
+    public void setTurboMarkEntity(TurboMarkEntity turboMarkEntity) {
+        this.turboMarkEntity = turboMarkEntity;
     }
 }

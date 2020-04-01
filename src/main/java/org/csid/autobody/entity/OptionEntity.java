@@ -3,17 +3,17 @@ package org.csid.autobody.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Energy")
-public class EnergyEntity {
+@Table(name = "Option")
+public class OptionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private Long name;
+    @Column(name = "description")
+    private String description;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private SpecificationsEntity specificationsEntity;
 
     public Long getId() {
@@ -24,12 +24,12 @@ public class EnergyEntity {
         this.id = id;
     }
 
-    public Long getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(Long name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public SpecificationsEntity getSpecificationsEntity() {
