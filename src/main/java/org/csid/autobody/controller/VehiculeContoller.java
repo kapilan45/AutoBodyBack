@@ -3,12 +3,14 @@ package org.csid.autobody.controller;
 import org.csid.autobody.dto.VehiculeDto;
 import org.csid.autobody.services.VehiculeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/cars")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class VehiculeContoller {
 
     private final VehiculeService vehiculeService;
@@ -22,6 +24,19 @@ public class VehiculeContoller {
     public List<VehiculeDto> getAllVehicules(){
         return vehiculeService.getAll();
     }
+
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    public VehiculeDto getForm(Model model){
+        model.addAttribute("vehicule", new VehiculeDto());
+
+        return new VehiculeDto();
+    }
+
+    @PostMapping("/save")
+    public void saveAnnonce(@RequestBody VehiculeDto vehiculeDto){
+        System.out.println(vehiculeDto.getPrix());
+    }
+
 
    /* @GetMapping("{id}")
     public VehiculeDto getEmployee(@PathVariable Long id) {

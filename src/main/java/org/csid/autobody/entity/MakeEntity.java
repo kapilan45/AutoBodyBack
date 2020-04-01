@@ -16,7 +16,8 @@ public class MakeEntity {
     @Column(name = "name")
     private String name;
 
-
+    public MakeEntity() {
+    }
 
     public Long getId() {
         return id;

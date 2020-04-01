@@ -1,7 +1,5 @@
 package org.csid.autobody.entity;
 
-import sun.util.resources.Bundles;
-
 import javax.persistence.*;
 
 @Entity

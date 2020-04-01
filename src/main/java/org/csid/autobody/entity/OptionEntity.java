@@ -16,6 +16,9 @@ public class OptionEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private SpecificationsEntity specificationsEntity;
 
+    public OptionEntity() {
+    }
+
     public Long getId() {
         return id;
     }

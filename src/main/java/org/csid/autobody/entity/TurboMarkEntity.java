@@ -1,6 +1,7 @@
 package org.csid.autobody.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Turbo_mark")
@@ -14,7 +15,10 @@ public class TurboMarkEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private TurboModelEntity turboModelEntity;
+    private List<TurboModelEntity> turboModelEntity;
+
+    public TurboMarkEntity() {
+    }
 
     public Long getId() {
         return id;
@@ -32,11 +36,11 @@ public class TurboMarkEntity {
         this.name = name;
     }
 
-    public TurboModelEntity getTurboModelEntity() {
+    public List<TurboModelEntity> getTurboModelEntity() {
         return turboModelEntity;
     }
 
-    public void setTurboModelEntity(TurboModelEntity turboModelEntity) {
+    public void setTurboModelEntity(List<TurboModelEntity> turboModelEntity) {
         this.turboModelEntity = turboModelEntity;
     }
 }

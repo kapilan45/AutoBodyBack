@@ -1,6 +1,7 @@
 package org.csid.autobody.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Transmission")
@@ -14,7 +15,10 @@ public class TransmissionEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private TransmissionEntity transmissionEntity;
+    private List<SpecificationsEntity> specificationsEntities;
+
+    public TransmissionEntity() {
+    }
 
     public Long getId() {
         return id;
@@ -32,11 +36,11 @@ public class TransmissionEntity {
         this.name = name;
     }
 
-    public TransmissionEntity getTransmissionEntity() {
-        return transmissionEntity;
+    public List<SpecificationsEntity> getSpecificationsEntities() {
+        return specificationsEntities;
     }
 
-    public void setTransmissionEntity(TransmissionEntity transmissionEntity) {
-        this.transmissionEntity = transmissionEntity;
+    public void setSpecificationsEntities(List<SpecificationsEntity> specificationsEntities) {
+        this.specificationsEntities = specificationsEntities;
     }
 }

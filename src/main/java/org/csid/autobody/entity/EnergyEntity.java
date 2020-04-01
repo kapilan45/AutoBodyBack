@@ -1,6 +1,7 @@
 package org.csid.autobody.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Energy")
@@ -14,7 +15,10 @@ public class EnergyEntity {
     private Long name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private SpecificationsEntity specificationsEntity;
+    private List<SpecificationsEntity> specificationsEntity;
+
+    public EnergyEntity() {
+    }
 
     public Long getId() {
         return id;
@@ -32,11 +36,11 @@ public class EnergyEntity {
         this.name = name;
     }
 
-    public SpecificationsEntity getSpecificationsEntity() {
+    public List<SpecificationsEntity> getSpecificationsEntity() {
         return specificationsEntity;
     }
 
-    public void setSpecificationsEntity(SpecificationsEntity specificationsEntity) {
+    public void setSpecificationsEntity(List<SpecificationsEntity> specificationsEntity) {
         this.specificationsEntity = specificationsEntity;
     }
 }
