@@ -26,4 +26,5 @@ public class AnnonceController {
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
         this.annonceService.saveAnnonce(annonceDto);
     }
+
 }
