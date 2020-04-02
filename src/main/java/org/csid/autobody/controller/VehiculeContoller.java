@@ -1,6 +1,6 @@
 package org.csid.autobody.controller;
 
-import org.csid.autobody.dto.VehiculeDto;
+import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.services.VehiculeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -21,19 +21,19 @@ public class VehiculeContoller {
     }
 
     @GetMapping
-    public List<VehiculeDto> getAllVehicules(){
+    public List<AnnonceDto> getAllVehicules(){
         return vehiculeService.getAll();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public VehiculeDto getForm(Model model){
-        model.addAttribute("vehicule", new VehiculeDto());
+    public AnnonceDto getForm(Model model){
+        model.addAttribute("vehicule", new AnnonceDto());
 
-        return new VehiculeDto();
+        return new AnnonceDto();
     }
 
     @PostMapping("/save")
-    public void saveAnnonce(@RequestBody VehiculeDto vehiculeDto){
+    public void saveAnnonce(@RequestBody AnnonceDto vehiculeDto){
         System.out.println(vehiculeDto.getPrix());
     }
 

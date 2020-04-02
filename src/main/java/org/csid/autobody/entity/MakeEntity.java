@@ -16,6 +16,9 @@ public class MakeEntity {
     @Column(name = "name")
     private String name;
 
+    @OneToOne(optional = false)
+    private AnnonceEntity annonce;
+
     public MakeEntity() {
     }
 
@@ -33,5 +36,15 @@ public class MakeEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+
+    public AnnonceEntity getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(AnnonceEntity annonce) {
+        this.annonce = annonce;
     }
 }

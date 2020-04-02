@@ -1,26 +1,27 @@
 package org.csid.autobody.controller;
 
-import org.csid.autobody.dto.VehiculeDto;
-import org.csid.autobody.services.VehiculeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.services.AnnonceService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
-@RestController
-@RequestMapping("annonces")
-public class AnnonceController {
+@RequestMapping("/annonce")
+public class AnnonceController extends ApiController {
 
-    @Autowired
-    private VehiculeService vehiculeService;
+    private final AnnonceService annonceService;
+
+    public AnnonceController(AnnonceService annonceService) {
+        this.annonceService = annonceService;
+    }
 
     @GetMapping
-    public List<VehiculeDto> getAllAnnonces(){
-        return vehiculeService.getAll();
+    public List<AnnonceDto> getAllAnnonces(){
+        return annonceService.getAll();
+    }
+
+    @PostMapping
+    public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
+        this.annonceService.saveAnnonce(annonceDto);
     }
 }

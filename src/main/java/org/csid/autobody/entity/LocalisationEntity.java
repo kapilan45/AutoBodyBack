@@ -1,6 +1,7 @@
 package org.csid.autobody.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Localisation")
@@ -16,7 +17,8 @@ public class LocalisationEntity {
     @Column(name = "postal_code")
     private int postal_code;
 
-    //TODO
+    @OneToMany(mappedBy = "localisation", fetch = FetchType.LAZY)
+    private List<AnnonceEntity> annonces;
 
     public LocalisationEntity() {
     }
@@ -43,5 +45,13 @@ public class LocalisationEntity {
 
     public void setPostal_code(int postal_code) {
         this.postal_code = postal_code;
+    }
+
+    public List<AnnonceEntity> getAnnonces() {
+        return annonces;
+    }
+
+    public void setAnnonces(List<AnnonceEntity> annonces) {
+        this.annonces = annonces;
     }
 }

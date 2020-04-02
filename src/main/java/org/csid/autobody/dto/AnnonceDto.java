@@ -1,6 +1,6 @@
 package org.csid.autobody.dto;
 
-public class VehiculeDto {
+public class AnnonceDto {
 
     private Long id;
     private String marque;
@@ -14,7 +14,7 @@ public class VehiculeDto {
     private double prix;
     private String image;
 
-    public VehiculeDto() {
+    public AnnonceDto() {
     }
 
     public Long getId(){

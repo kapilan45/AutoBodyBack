@@ -141,4 +141,15 @@ public class SpecificationsEntity {
     public void setOptionEntity(OptionEntity optionEntity) {
         this.optionEntity = optionEntity;
     }
+
+    @OneToOne(optional = false)
+    private AnnonceEntity annonce;
+
+    public AnnonceEntity getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(AnnonceEntity annonce) {
+        this.annonce = annonce;
+    }
 }

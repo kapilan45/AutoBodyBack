@@ -1,7 +1,7 @@
 package org.csid.autobody.services;
 
 import org.csid.autobody.controller.DtoConverter;
-import org.csid.autobody.dto.VehiculeDto;
+import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.entity.VehiculeEntity;
 import org.csid.autobody.repository.VehiculeRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ public class VehiculeService {
         this.vehiculeRepository = vehiculeRepository;
     }
 
-    public List<VehiculeDto> getAll() {
+    public List<AnnonceDto> getAll() {
         List<VehiculeEntity> all = vehiculeRepository.findAll();
-        return DtoConverter.mapAsList(all, VehiculeDto.class);
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
    /* TODO public Vehicule get(Long id){
