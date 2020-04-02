@@ -46,10 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.formLogin().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/api/annonce").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/users").permitAll()
                 .antMatchers("/cars/**").permitAll()
-                .anyRequest().authenticated().and().csrf().disable();
+                .anyRequest().authenticated().and().csrf().and().cors().disable();
 
         auth.headers().frameOptions().sameOrigin();
         auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));

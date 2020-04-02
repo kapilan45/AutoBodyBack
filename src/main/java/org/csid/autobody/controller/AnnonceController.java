@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/annonce")
-public class AnnonceController extends ApiController {
+@CrossOrigin(origins = {"http://localhost:4200"})
+@RestController
+@RequestMapping("/api/annonce")
+public class AnnonceController {
 
     private final AnnonceService annonceService;
 
