@@ -8,7 +8,7 @@ public class VehiculeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_vehicule")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "marque")

@@ -8,8 +8,8 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api/annonce")
-public class AnnonceController {
+@RequestMapping("/final/annonce")
+public class AnnonceController extends ApiController {
 
     private final AnnonceService annonceService;
 
@@ -24,6 +24,7 @@ public class AnnonceController {
 
     @PostMapping
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
+        System.out.println(annonceDto.getMarque());
         this.annonceService.saveAnnonce(annonceDto);
     }
 }

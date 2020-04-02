@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/api/annonce")
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class VehiculeContoller {
 
@@ -24,6 +24,8 @@ public class VehiculeContoller {
     public List<AnnonceDto> getAllVehicules(){
         return vehiculeService.getAll();
     }
+
+
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public AnnonceDto getForm(Model model){
