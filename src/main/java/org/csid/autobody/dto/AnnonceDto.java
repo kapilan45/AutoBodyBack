@@ -4,7 +4,7 @@ public class AnnonceDto {
 
     private Long id;
     private String marque;
-    private String modele;
+   // private String modele;
     private String categorie;
     private String energie;
     private int kilometrage;
@@ -12,7 +12,7 @@ public class AnnonceDto {
     private int stage;
     private String localisation;
     private double prix;
-    private String image;
+    //private String image;
 
     public AnnonceDto() {
     }
@@ -89,21 +89,6 @@ public class AnnonceDto {
         this.prix = prix;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getModele() {
-        return modele;
-    }
-
-    public void setModele(String modele) {
-        this.modele = modele;
-    }
 
     @Override
     public String toString() {
@@ -117,7 +102,6 @@ public class AnnonceDto {
                 ", stage=" + stage +
                 ", localisation='" + localisation + '\'' +
                 ", prix=" + prix + + '\'' +
-                ", image=" + image +
                 '}';
     }
 
