@@ -43,14 +43,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity auth) throws Exception {
 
-        auth.formLogin().disable()
+        auth.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/users").permitAll()
+                .antMatchers("/users/**").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .antMatchers("/cars/**").permitAll()
-                .anyRequest().authenticated().and().csrf().and().cors().disable();
+                .anyRequest().authenticated();
 
         auth.headers().frameOptions().sameOrigin();
         auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));
