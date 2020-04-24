@@ -12,7 +12,7 @@ public class AnnonceDto {
     private int stage;
     private String localisation;
     private double prix;
-    //private String image;
+    private String image;
 
     public AnnonceDto() {
     }
@@ -89,6 +89,13 @@ public class AnnonceDto {
         this.prix = prix;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public String toString() {

@@ -17,18 +17,18 @@ public class VehiculeService {
     }
 
     public List<AnnonceDto> getAll() {
-        VehiculeEntity vehiculeEntity = new VehiculeEntity();
         List<VehiculeEntity> all = vehiculeRepository.findAll();
-        if(all.size() == 0){
-            System.out.println(all.size());
-        }
-        for (VehiculeEntity ve : all) {
-            System.out.println(ve.getMarque());
-        }
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-   /* TODO public Vehicule get(Long id){
+
+
+
+
+
+
+   /* TODO
+       public Vehicule get(Long id){
        try{
            return VehiculeMapper.toVehicule(vehiculeRepository.getOne(id));
        } catch(PersistenceException ex){
