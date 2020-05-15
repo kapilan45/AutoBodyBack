@@ -36,6 +36,7 @@ public class JsonAuthenticationFilter  extends UsernamePasswordAuthenticationFil
         } catch (IOException e) {
             throw new IllegalArgumentException("Invalid authentication object", e);
         }
+        //nnn
     }
 
 
