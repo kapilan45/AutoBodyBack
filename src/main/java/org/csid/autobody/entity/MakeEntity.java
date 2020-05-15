@@ -10,41 +10,16 @@ public class MakeEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @OneToOne(optional = false)
-    private AnnonceEntity annonce;
+    private String make;
 
     public MakeEntity() {
     }
 
-    public Long getId() {
-        return id;
+    public String getMake() {
+        return make;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-    public AnnonceEntity getAnnonce() {
-        return annonce;
-    }
-
-    public void setAnnonce(AnnonceEntity annonce) {
-        this.annonce = annonce;
+    public void setMake(String make) {
+        this.make = make;
     }
 }

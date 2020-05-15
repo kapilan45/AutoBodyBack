@@ -7,29 +7,17 @@ import javax.persistence.*;
 public class ModelEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
+    private String model;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
 
-    public Long getId() {
-        return id;
+    public String getModel() {
+        return model;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public MakeEntity getMake() {

@@ -24,8 +24,9 @@ public class AnnonceController extends ApiController {
 
     @PostMapping
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
-        System.out.println(annonceDto.getMarque());
         this.annonceService.saveAnnonce(annonceDto);
     }
+
+
 
 }

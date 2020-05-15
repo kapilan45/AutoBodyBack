@@ -36,7 +36,7 @@ public class VehiculeContoller {
 
     @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto vehiculeDto){
-        System.out.println(vehiculeDto.getPrix());
+        //System.out.println(vehiculeDto.getPrix());
     }
 
 

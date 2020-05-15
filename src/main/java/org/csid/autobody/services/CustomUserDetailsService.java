@@ -2,8 +2,13 @@ package org.csid.autobody.services;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import org.csid.autobody.controller.DtoConverter;
+import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.entity.AnnonceEntity;
 import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
+import org.csid.autobody.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +24,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
-
 
     @Override
     @Transactional(readOnly = true)

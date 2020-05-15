@@ -19,6 +19,9 @@ public class UserEntity {
     @Column(name = "password", length = 75)
     private String password;
 
+    @Column(name = "mail", length = 150)
+    private String mail;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private RoleEntity role;

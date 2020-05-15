@@ -8,27 +8,15 @@ import java.util.List;
 public class LocalisationEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "city")
     private String city;
 
     @Column(name = "postal_code")
-    private int postal_code;
+    private String postal_code;
 
     @OneToMany(mappedBy = "localisation", fetch = FetchType.LAZY)
     private List<AnnonceEntity> annonces;
 
     public LocalisationEntity() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCity() {
@@ -39,11 +27,11 @@ public class LocalisationEntity {
         this.city = city;
     }
 
-    public int getPostal_code() {
+    public String getPostal_code() {
         return postal_code;
     }
 
-    public void setPostal_code(int postal_code) {
+    public void setPostal_code(String postal_code) {
         this.postal_code = postal_code;
     }
 
