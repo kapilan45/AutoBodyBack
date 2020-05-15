@@ -3,21 +3,19 @@ package org.csid.autobody.dto;
 public class AnnonceDto {
 
     private Long id;
-    private String marque;
-   // private String modele;
-    private String categorie;
-    private String energie;
-    private int kilometrage;
-    private int annee;
+    private int placeNumber;
+    private int maxSpeed;
+    private boolean reinforcedClutch;
+    private int horsePower;
+    private int fiscalHorsePower;
     private int stage;
-    private String localisation;
-    private double prix;
-    private String image;
+    private String options;
+    private MakeDto make;
+    private LocalisationDto localisation;
 
-    public AnnonceDto() {
-    }
+    public AnnonceDto(){}
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
@@ -25,44 +23,44 @@ public class AnnonceDto {
         this.id = id;
     }
 
-    public String getMarque() {
-        return marque;
+    public int getPlaceNumber() {
+        return placeNumber;
     }
 
-    public void setMarque(String marque) {
-        this.marque = marque;
+    public void setPlaceNumber(int placeNumber) {
+        this.placeNumber = placeNumber;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public int getMaxSpeed() {
+        return maxSpeed;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 
-    public String getEnergie() {
-        return energie;
+    public boolean isReinforcedClutch() {
+        return reinforcedClutch;
     }
 
-    public void setEnergie(String energie) {
-        this.energie = energie;
+    public void setReinforcedClutch(boolean reinforcedClutch) {
+        this.reinforcedClutch = reinforcedClutch;
     }
 
-    public int getKilometrage() {
-        return kilometrage;
+    public int getHorsePower() {
+        return horsePower;
     }
 
-    public void setKilometrage(int kilometrage) {
-        this.kilometrage = kilometrage;
+    public void setHorsePower(int horsePower) {
+        this.horsePower = horsePower;
     }
 
-    public int getAnnee() {
-        return annee;
+    public int getFiscalHorsePower() {
+        return fiscalHorsePower;
     }
 
-    public void setAnnee(int annee) {
-        this.annee = annee;
+    public void setFiscalHorsePower(int fiscalHorsePower) {
+        this.fiscalHorsePower = fiscalHorsePower;
     }
 
     public int getStage() {
@@ -73,43 +71,27 @@ public class AnnonceDto {
         this.stage = stage;
     }
 
-    public String getLocalisation() {
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public MakeDto getMake() {
+        return make;
+    }
+
+    public void setMake(MakeDto make) {
+        this.make = make;
+    }
+
+    public LocalisationDto getLocalisation() {
         return localisation;
     }
 
-    public void setLocalisation(String localisation) {
+    public void setLocalisation(LocalisationDto localisation) {
         this.localisation = localisation;
     }
-
-    public double getPrix() {
-        return prix;
-    }
-
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @Override
-    public String toString() {
-        return "VehiculeDTO{" +
-                "id=" + id +
-                ", marque='" + marque + '\'' +
-                ", categorie='" + categorie + '\'' +
-                ", energie='" + energie + '\'' +
-                ", kilometrage='" + kilometrage + '\'' +
-                ", annee=" + annee +
-                ", stage=" + stage +
-                ", localisation='" + localisation + '\'' +
-                ", prix=" + prix + + '\'' +
-                '}';
-    }
-
 }

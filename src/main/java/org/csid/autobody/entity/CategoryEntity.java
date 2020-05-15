@@ -8,11 +8,7 @@ import java.util.List;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
+    private String category;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<ModelEntity> modelEntity;
@@ -20,20 +16,12 @@ public class CategoryEntity {
     public CategoryEntity() {
     }
 
-    public Long getId() {
-        return id;
+    public String getCategory() {
+        return category;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public List<ModelEntity> getModelEntity() {

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/annonce")
-@CrossOrigin(origins = {"http://localhost:4200"}, methods = { RequestMethod.GET, RequestMethod.POST}, allowedHeaders = {"Access-Control-Allow-Headers"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class VehiculeContoller {
 
     private final VehiculeService vehiculeService;
@@ -20,22 +20,11 @@ public class VehiculeContoller {
         this.vehiculeService = vehiculeService;
     }
 
-    @PostMapping()
-    public String saveAnnonce(@RequestBody AnnonceDto vehiculeDto){
-        System.out.println("test");
-        return "test";
-
-    }
     @GetMapping
     public List<AnnonceDto> getAllVehicules(){
         return vehiculeService.getAll();
     }
 
-
-    @GetMapping("/get")
-    public String postMe(){
-        return "test";
-    }
 
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
@@ -45,7 +34,10 @@ public class VehiculeContoller {
         return new AnnonceDto();
     }
 
-
+    @PostMapping("/save")
+    public void saveAnnonce(@RequestBody AnnonceDto vehiculeDto){
+        //System.out.println(vehiculeDto.getPrix());
+    }
 
 
    /* @GetMapping("{id}")

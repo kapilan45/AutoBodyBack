@@ -11,11 +11,29 @@ public class AnnonceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "annonce", fetch = FetchType.LAZY)
-    private MakeEntity makes;
+    @Column(name = "placeNumber")
+    private int placeNumber;
 
-    @OneToOne(mappedBy = "annonce", fetch = FetchType.LAZY)
-    private SpecificationsEntity specifications;
+    @Column(name = "maxSpeed")
+    private int maxSpeed;
+
+    @Column(name = "reinforcedClutch")
+    private boolean reinforcedClutch;
+
+    @Column(name = "horsePower")
+    private int horsePower;
+
+    @Column(name = "fiscalHorsePower")
+    private int fiscalHorsePower;
+
+    @Column(name = "stage")
+    private int stage;
+
+    @Column(name = "options")
+    private String options;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MakeEntity make;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private LocalisationEntity localisation;
@@ -32,19 +50,59 @@ public class AnnonceEntity {
     }
 
     public MakeEntity getMakes() {
-        return makes;
+        return make;
     }
 
     public void setMakes(MakeEntity makes) {
-        this.makes = makes;
+        this.make = makes;
     }
 
-    public SpecificationsEntity getSpecifications() {
-        return specifications;
+    public int getPlaceNumber() {
+        return placeNumber;
     }
 
-    public void setSpecifications(SpecificationsEntity specifications) {
-        this.specifications = specifications;
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public boolean isReinforcedClutch() {
+        return reinforcedClutch;
+    }
+
+    public void setReinforcedClutch(boolean reinforcedClutch) {
+        this.reinforcedClutch = reinforcedClutch;
+    }
+
+    public int getHorsePower() {
+        return horsePower;
+    }
+
+    public void setHorsePower(int horsePower) {
+        this.horsePower = horsePower;
+    }
+
+    public int getFiscalHorsePower() {
+        return fiscalHorsePower;
+    }
+
+    public void setFiscalHorsePower(int fiscalHorsePower) {
+        this.fiscalHorsePower = fiscalHorsePower;
+    }
+
+    public int getStage() {
+        return stage;
+    }
+
+    public void setStage(int stage) {
+        this.stage = stage;
+    }
+
+    public void setPlaceNumber(int placeNumber) {
+        this.placeNumber = placeNumber;
     }
 
     public LocalisationEntity getLocalisation() {

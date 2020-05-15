@@ -22,9 +22,17 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    public void saveAnnonce(AnnonceDto annonceDto){
+    public void saveAnnonce(AnnonceDto annonceDto) {
+
+        System.out.println(annonceDto.getId());
+        System.out.println(annonceDto.getMaxSpeed());
+        System.out.println(annonceDto.getMake().getMake());
+        System.out.println(annonceDto.getLocalisation().getCity());
+
+
 
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         this.annonceRepository.save(annonce);
+
     }
 }
