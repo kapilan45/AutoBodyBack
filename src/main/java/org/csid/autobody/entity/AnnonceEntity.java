@@ -32,6 +32,9 @@ public class AnnonceEntity {
     @Column(name = "options")
     private String options;
 
+    @Column(name = "prix")
+    private double prix;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
 
@@ -111,5 +114,29 @@ public class AnnonceEntity {
 
     public void setLocalisation(LocalisationEntity localisation) {
         this.localisation = localisation;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    public MakeEntity getMake() {
+        return make;
+    }
+
+    public void setMake(MakeEntity make) {
+        this.make = make;
     }
 }

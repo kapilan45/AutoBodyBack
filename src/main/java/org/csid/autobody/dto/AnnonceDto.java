@@ -9,11 +9,20 @@ public class AnnonceDto {
     private int horsePower;
     private int fiscalHorsePower;
     private int stage;
+    private double prix;
     private String options;
     private MakeDto make;
     private LocalisationDto localisation;
 
     public AnnonceDto(){}
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
 
     public Long getId() {
         return id;
