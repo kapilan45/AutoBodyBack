@@ -10,8 +10,8 @@ public class CategoryEntity {
     @Id
     private String category;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<ModelEntity> modelEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ModelEntity modelEntity;
 
     public CategoryEntity() {
     }
@@ -24,11 +24,11 @@ public class CategoryEntity {
         this.category = category;
     }
 
-    public List<ModelEntity> getModelEntity() {
+    public ModelEntity getModelEntity() {
         return modelEntity;
     }
 
-    public void setModelEntity(List<ModelEntity> modelEntity) {
+    public void setModelEntity(ModelEntity modelEntity) {
         this.modelEntity = modelEntity;
     }
 }

@@ -1,5 +1,7 @@
 package org.csid.autobody.entity;
 
+import org.csid.autobody.dto.CategoryDto;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,6 +36,24 @@ public class AnnonceEntity {
 
     @Column(name = "prix")
     private double prix;
+
+    @Column(name = "kilometrage")
+    private int kilometrage;
+
+    @Column(name = "annee")
+    private int annee;
+
+    @Column(name = "energy")
+    private String energy;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ImageEntity> images;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ModelEntity model;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryEntity category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
@@ -138,5 +158,53 @@ public class AnnonceEntity {
 
     public void setMake(MakeEntity make) {
         this.make = make;
+    }
+
+    public int getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(int kilometrage) {
+        this.kilometrage = kilometrage;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(String energy) {
+        this.energy = energy;
+    }
+
+    public ModelEntity getModel() {
+        return model;
+    }
+
+    public void setModel(ModelEntity model) {
+        this.model = model;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
+
+    public List<ImageEntity> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageEntity> images) {
+        this.images = images;
     }
 }

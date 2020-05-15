@@ -1,5 +1,7 @@
 package org.csid.autobody.dto;
 
+import java.util.List;
+
 public class AnnonceDto {
 
     private Long id;
@@ -10,9 +12,15 @@ public class AnnonceDto {
     private int fiscalHorsePower;
     private int stage;
     private double prix;
+    private int kilometrage;
+    private String energy;
+    private int annee;
+    private ModelDto model;
+    private CategoryDto category;
     private String options;
     private MakeDto make;
     private LocalisationDto localisation;
+    private List<ImageDto> images;
 
     public AnnonceDto(){}
 
@@ -102,5 +110,53 @@ public class AnnonceDto {
 
     public void setLocalisation(LocalisationDto localisation) {
         this.localisation = localisation;
+    }
+
+    public int getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(int kilometrage) {
+        this.kilometrage = kilometrage;
+    }
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(String energy) {
+        this.energy = energy;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public ModelDto getModel() {
+        return model;
+    }
+
+    public void setModel(ModelDto model) {
+        this.model = model;
+    }
+
+    public CategoryDto getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDto category) {
+        this.category = category;
+    }
+
+    public List<ImageDto> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageDto> images) {
+        this.images = images;
     }
 }
