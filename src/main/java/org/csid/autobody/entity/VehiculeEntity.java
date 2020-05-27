@@ -35,6 +35,9 @@ public class VehiculeEntity {
     @Column(name = "prix")
     private double prix;
 
+    @Column(name = "image")
+    private String image;
+
     public VehiculeEntity(){
 
     }
@@ -111,4 +114,11 @@ public class VehiculeEntity {
         this.prix = prix;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

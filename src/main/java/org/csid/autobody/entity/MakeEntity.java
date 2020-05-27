@@ -1,7 +1,5 @@
 package org.csid.autobody.entity;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +12,7 @@ public class MakeEntity {
 
     public MakeEntity() {
     }
+
 
     public String getMake() {
         return make;

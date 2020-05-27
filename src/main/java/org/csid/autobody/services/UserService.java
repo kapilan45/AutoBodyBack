@@ -1,5 +1,7 @@
 package org.csid.autobody.services;
 
+import org.csid.autobody.controller.DtoConverter;
+import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.UserEntity;
 import org.csid.autobody.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +76,9 @@ public class UserService {
 
     public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
+    }
+
+    public UserDto save(UserEntity user) {
+        return DtoConverter.map(userRepository.save(user), UserDto.class);
     }
 }

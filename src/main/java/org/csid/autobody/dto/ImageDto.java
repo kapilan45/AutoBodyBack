@@ -3,7 +3,7 @@ package org.csid.autobody.dto;
 public class ImageDto {
 
     private Long id;
-    private String path;
+    private byte[] path;
 
     public ImageDto() {
     }
@@ -16,11 +16,11 @@ public class ImageDto {
         this.id = id;
     }
 
-    public String getPath() {
+    public byte[] getPath() {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(byte[] path) {
         this.path = path;
     }
 }

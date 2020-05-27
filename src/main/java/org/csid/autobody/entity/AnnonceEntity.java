@@ -55,7 +55,7 @@ public class AnnonceEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private CategoryEntity category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
 
     @ManyToOne(fetch = FetchType.LAZY)

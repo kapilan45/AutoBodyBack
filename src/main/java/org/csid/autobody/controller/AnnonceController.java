@@ -8,8 +8,8 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("/final/annonce")
-public class AnnonceController extends ApiController {
+@RequestMapping("/api/annonce")
+public class AnnonceController {
 
     private final AnnonceService annonceService;
 
