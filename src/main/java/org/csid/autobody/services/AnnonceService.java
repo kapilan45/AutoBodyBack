@@ -26,7 +26,7 @@ public class AnnonceService {
 
         System.out.println(annonceDto.getId());
         System.out.println(annonceDto.getMaxSpeed());
-        System.out.println(annonceDto.getMake().getMake());
+        System.out.println(annonceDto.getMake());
         System.out.println(annonceDto.getLocalisation().getCity());
 
 
