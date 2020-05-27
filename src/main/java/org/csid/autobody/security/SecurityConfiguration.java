@@ -43,6 +43,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity auth) throws Exception {
 
+        auth.formLogin()
+                .loginPage("/login.html")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/homepage.html",true)
+                .failureUrl("/login.html?error=true");
+
         auth.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
@@ -55,6 +61,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         auth.headers().frameOptions().sameOrigin();
         auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));
+
+
+
     }
 
     @Override
