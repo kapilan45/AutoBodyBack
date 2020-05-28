@@ -1,5 +1,6 @@
 package org.csid.autobody.security;
 
+import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
 import org.csid.autobody.services.CustomUserDetailsService;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import  java.util.List;
 
+
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/users")
 public class UserController {
 /*
@@ -96,15 +99,8 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public void createUser(@RequestBody UserEntity user){
-        RoleEntity role = roleService.findByRoleName("ROLE_USER");
-        user.setPassword(userService.getPasswordEncoder().encode(user.getPassword()));
-
-        if(user.getRole() == null){
-            user.setRole(role);
-        }
-
-        userService.getUserRepository().save(user);
+    public void createUser(@RequestBody UserDto user){
+        this.userService.save(user);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -112,7 +108,5 @@ public class UserController {
     public void deleteUser(@PathVariable String username){
         userService.deleteUser(username);
     }
-
-    @
 
 }
