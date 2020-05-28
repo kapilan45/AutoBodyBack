@@ -1,26 +1,36 @@
 package org.csid.autobody.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class AnnonceDto {
 
     private Long id;
-    private int placeNumber;
     private int maxSpeed;
     private boolean reinforcedClutch;
     private int horsePower;
     private int fiscalHorsePower;
     private int stage;
+    private int numberOfDoor;
+    private int numberOfPlaces;
     private double prix;
-    private int kilometrage;
+    private Long kilometrage;
     private String energy;
-    private int annee;
+    private String gearbox;
+    private String outSideColor;
+    private String inSideColor;
+    private String numberOfOwner;
+    private String firstHand;
+    private String euroNorme;
+    private int co2;
+    private Date annee;
     private ModelDto model;
     private CategoryDto category;
     private String options;
     private MakeDto make;
     private LocalisationDto localisation;
     private List<ImageDto> images;
+    private Date publishedDate;
 
     public AnnonceDto(){}
 
@@ -38,14 +48,6 @@ public class AnnonceDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getPlaceNumber() {
-        return placeNumber;
-    }
-
-    public void setPlaceNumber(int placeNumber) {
-        this.placeNumber = placeNumber;
     }
 
     public int getMaxSpeed() {
@@ -112,11 +114,11 @@ public class AnnonceDto {
         this.localisation = localisation;
     }
 
-    public int getKilometrage() {
+    public Long getKilometrage() {
         return kilometrage;
     }
 
-    public void setKilometrage(int kilometrage) {
+    public void setKilometrage(Long kilometrage) {
         this.kilometrage = kilometrage;
     }
 
@@ -126,14 +128,6 @@ public class AnnonceDto {
 
     public void setEnergy(String energy) {
         this.energy = energy;
-    }
-
-    public int getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(int annee) {
-        this.annee = annee;
     }
 
     public ModelDto getModel() {
@@ -158,5 +152,93 @@ public class AnnonceDto {
 
     public void setImages(List<ImageDto> images) {
         this.images = images;
+    }
+
+    public String getGearbox() {
+        return gearbox;
+    }
+
+    public void setGearbox(String gearbox) {
+        this.gearbox = gearbox;
+    }
+
+    public int getNumberOfDoor() {
+        return numberOfDoor;
+    }
+
+    public void setNumberOfDoor(int numberOfDoor) {
+        this.numberOfDoor = numberOfDoor;
+    }
+
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
+
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
+
+    public String getOutSideColor() {
+        return outSideColor;
+    }
+
+    public void setOutSideColor(String outSideColor) {
+        this.outSideColor = outSideColor;
+    }
+
+    public String getInSideColor() {
+        return inSideColor;
+    }
+
+    public void setInSideColor(String inSideColor) {
+        this.inSideColor = inSideColor;
+    }
+
+    public String getNumberOfOwner() {
+        return numberOfOwner;
+    }
+
+    public void setNumberOfOwner(String numberOfOwner) {
+        this.numberOfOwner = numberOfOwner;
+    }
+
+    public String getFirstHand() {
+        return firstHand;
+    }
+
+    public void setFirstHand(String firstHand) {
+        this.firstHand = firstHand;
+    }
+
+    public String getEuroNorme() {
+        return euroNorme;
+    }
+
+    public void setEuroNorme(String euroNorme) {
+        this.euroNorme = euroNorme;
+    }
+
+    public int getCo2() {
+        return co2;
+    }
+
+    public void setCo2(int co2) {
+        this.co2 = co2;
+    }
+
+    public Date getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(Date annee) {
+        this.annee = annee;
+    }
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
     }
 }

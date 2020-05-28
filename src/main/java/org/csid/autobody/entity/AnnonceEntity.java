@@ -1,8 +1,7 @@
 package org.csid.autobody.entity;
 
-import org.csid.autobody.dto.CategoryDto;
-
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,9 +11,6 @@ public class AnnonceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "placeNumber")
-    private int placeNumber;
 
     @Column(name = "maxSpeed")
     private int maxSpeed;
@@ -34,17 +30,44 @@ public class AnnonceEntity {
     @Column(name = "options")
     private String options;
 
+    @Column(name = "gearbox")
+    private String gearbox;
+
+    @Column(name = "outSideColor")
+    private String outSideColor;
+
+    @Column(name = "inSideColor")
+    private String inSideColor;
+
+    @Column(name = "numberOfOwner")
+    private String numberOfOwner;
+
+    @Column(name = "firstHand")
+    private String firstHand;
+
+    @Column(name = "euroNorme")
+    private String euroNorme;
+
+    @Column(name = "co2")
+    private int co2;
+
     @Column(name = "prix")
     private double prix;
 
     @Column(name = "kilometrage")
-    private int kilometrage;
+    private Long kilometrage;
 
-    @Column(name = "annee")
-    private int annee;
+    @Column(name = "numberOfPlaces")
+    private int numberOfPlaces;
+
+    @Column(name = "numberOfDoor")
+    private int numberOfDoor;
 
     @Column(name = "energy")
     private String energy;
+
+    @Column(name = "publishedDate")
+    private Date publishedDate;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<ImageEntity> images;
@@ -61,6 +84,10 @@ public class AnnonceEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private LocalisationEntity localisation;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserEntity user;
+
+
     public AnnonceEntity() {
     }
 
@@ -70,18 +97,6 @@ public class AnnonceEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public MakeEntity getMakes() {
-        return make;
-    }
-
-    public void setMakes(MakeEntity makes) {
-        this.make = makes;
-    }
-
-    public int getPlaceNumber() {
-        return placeNumber;
     }
 
     public int getMaxSpeed() {
@@ -124,24 +139,68 @@ public class AnnonceEntity {
         this.stage = stage;
     }
 
-    public void setPlaceNumber(int placeNumber) {
-        this.placeNumber = placeNumber;
-    }
-
-    public LocalisationEntity getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(LocalisationEntity localisation) {
-        this.localisation = localisation;
-    }
-
     public String getOptions() {
         return options;
     }
 
     public void setOptions(String options) {
         this.options = options;
+    }
+
+    public String getGearbox() {
+        return gearbox;
+    }
+
+    public void setGearbox(String gearbox) {
+        this.gearbox = gearbox;
+    }
+
+    public String getOutSideColor() {
+        return outSideColor;
+    }
+
+    public void setOutSideColor(String outSideColor) {
+        this.outSideColor = outSideColor;
+    }
+
+    public String getInSideColor() {
+        return inSideColor;
+    }
+
+    public void setInSideColor(String inSideColor) {
+        this.inSideColor = inSideColor;
+    }
+
+    public String getNumberOfOwner() {
+        return numberOfOwner;
+    }
+
+    public void setNumberOfOwner(String numberOfOwner) {
+        this.numberOfOwner = numberOfOwner;
+    }
+
+    public String getFirstHand() {
+        return firstHand;
+    }
+
+    public void setFirstHand(String firstHand) {
+        this.firstHand = firstHand;
+    }
+
+    public String getEuroNorme() {
+        return euroNorme;
+    }
+
+    public void setEuroNorme(String euroNorme) {
+        this.euroNorme = euroNorme;
+    }
+
+    public int getCo2() {
+        return co2;
+    }
+
+    public void setCo2(int co2) {
+        this.co2 = co2;
     }
 
     public double getPrix() {
@@ -152,28 +211,28 @@ public class AnnonceEntity {
         this.prix = prix;
     }
 
-    public MakeEntity getMake() {
-        return make;
-    }
-
-    public void setMake(MakeEntity make) {
-        this.make = make;
-    }
-
-    public int getKilometrage() {
+    public Long getKilometrage() {
         return kilometrage;
     }
 
-    public void setKilometrage(int kilometrage) {
+    public void setKilometrage(Long kilometrage) {
         this.kilometrage = kilometrage;
     }
 
-    public int getAnnee() {
-        return annee;
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
     }
 
-    public void setAnnee(int annee) {
-        this.annee = annee;
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
+
+    public int getNumberOfDoor() {
+        return numberOfDoor;
+    }
+
+    public void setNumberOfDoor(int numberOfDoor) {
+        this.numberOfDoor = numberOfDoor;
     }
 
     public String getEnergy() {
@@ -182,6 +241,22 @@ public class AnnonceEntity {
 
     public void setEnergy(String energy) {
         this.energy = energy;
+    }
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public List<ImageEntity> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageEntity> images) {
+        this.images = images;
     }
 
     public ModelEntity getModel() {
@@ -200,11 +275,27 @@ public class AnnonceEntity {
         this.category = category;
     }
 
-    public List<ImageEntity> getImages() {
-        return images;
+    public MakeEntity getMake() {
+        return make;
     }
 
-    public void setImages(List<ImageEntity> images) {
-        this.images = images;
+    public void setMake(MakeEntity make) {
+        this.make = make;
+    }
+
+    public LocalisationEntity getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(LocalisationEntity localisation) {
+        this.localisation = localisation;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }
