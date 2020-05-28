@@ -20,7 +20,7 @@ import  java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 /*
     private final JdbcUserDetailsManager jdbcUserDetailsManager;

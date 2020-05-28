@@ -25,14 +25,32 @@ public class AnnonceDto {
     private int co2;
     private Date annee;
     private ModelDto model;
-    private CategoryDto category;
+    private String category;
     private String options;
-    private MakeDto make;
-    private LocalisationDto localisation;
+    private String make;
+    private String localisation;
     private List<ImageDto> images;
     private Date publishedDate;
 
     public AnnonceDto(){}
+
+
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
 
     public double getPrix() {
         return prix;
@@ -98,20 +116,12 @@ public class AnnonceDto {
         this.options = options;
     }
 
-    public MakeDto getMake() {
+    public String getMake() {
         return make;
     }
 
-    public void setMake(MakeDto make) {
+    public void setMake(String make) {
         this.make = make;
-    }
-
-    public LocalisationDto getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(LocalisationDto localisation) {
-        this.localisation = localisation;
     }
 
     public Long getKilometrage() {
@@ -138,13 +148,6 @@ public class AnnonceDto {
         this.model = model;
     }
 
-    public CategoryDto getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryDto category) {
-        this.category = category;
-    }
 
     public List<ImageDto> getImages() {
         return images;

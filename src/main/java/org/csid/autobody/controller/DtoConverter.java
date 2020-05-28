@@ -3,6 +3,8 @@ package org.csid.autobody.controller;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.entity.AnnonceEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,11 @@ public class DtoConverter {
 
     private static MapperFacade createMapper() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(AnnonceEntity.class, AnnonceDto.class)
+                .field("category.category","category")
+                .byDefault()
+                .register();
+
         return mapperFactory.getMapperFacade();
     }
 
