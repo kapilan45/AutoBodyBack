@@ -19,15 +19,18 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
+    /*
     @GetMapping
     public List<AnnonceDto> getAllByPublishedDate(){
         return annonceService.getAllByPublishedDate();
     }
 
+
     @GetMapping("/:user")
     public List<AnnonceDto> getAllByUser(UserDto user) {
         return annonceService.getAllByUser(user);
     }
+  */
 
 
     @PostMapping
