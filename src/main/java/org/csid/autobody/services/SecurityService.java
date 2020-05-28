@@ -20,7 +20,7 @@ public class SecurityService {
     public UserDto registration(UserDto user){
 
         // TODO Check verification (mail, username)
-        return userService.save(DtoConverter.map(user, UserEntity.class));
-
+        //return userService.save(DtoConverter.map(user, UserEntity.class));
+        return null;
     }
 }
