@@ -29,6 +29,7 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
+    /* TODO
     public List<AnnonceDto> getAllByPublishedDate(){
         List<AnnonceEntity> all = annonceRepository.findByPublishedDate();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
@@ -43,5 +44,5 @@ public class AnnonceService {
     public List<AnnonceDto> getAllByFilter(String filter){
         List<AnnonceEntity> all = annonceRepository.findAll();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
-    }
+    } */
 }
