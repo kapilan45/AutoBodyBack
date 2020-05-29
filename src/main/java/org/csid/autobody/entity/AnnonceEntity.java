@@ -11,7 +11,7 @@ public class AnnonceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&vjs=3
+
     @Column(name = "maxSpeed")
     private int maxSpeed;
 
