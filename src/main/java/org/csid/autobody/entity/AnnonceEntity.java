@@ -35,7 +35,8 @@ public class AnnonceEntity {
 
     @Column (name = "mileageSince1stModification")
     private int mileageSince1stModification;
-
+    
+    // Version/Finition
     @Column (name = "trim")
     private String trim;
 
@@ -57,6 +58,7 @@ public class AnnonceEntity {
     @Column (name = "fuelEconomySinceTheLatestModification")
     private  String fuelEconomySinceTheLatestModification;
 
+    // Type de transmission (4 roues motrices/ Propulsion/ Traction)
     @Column (name = "driveType")
     private String driveType;
 
