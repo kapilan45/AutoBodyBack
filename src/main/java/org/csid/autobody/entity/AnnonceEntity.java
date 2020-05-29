@@ -11,7 +11,7 @@ public class AnnonceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&vjs=3
     @Column(name = "maxSpeed")
     private int maxSpeed;
 
@@ -105,9 +105,6 @@ public class AnnonceEntity {
 
     @Column(name = "mileage")
     private Long mileage;
-
-    @Column(name = "numberOfPlaces")
-    private int numberOfPlaces;
 
     @Column(name = "numberOfDoor")
     private int numberOfDoor;
@@ -261,14 +258,6 @@ public class AnnonceEntity {
 
     public void setMilage(Long mileage) {
         this.mileage = mileage;
-    }
-
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
-    }
-
-    public void setNumberOfPlaces(int numberOfPlaces) {
-        this.numberOfPlaces = numberOfPlaces;
     }
 
     public int getNumberOfDoor() {
