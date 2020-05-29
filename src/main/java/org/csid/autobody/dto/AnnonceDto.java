@@ -9,21 +9,35 @@ public class AnnonceDto {
     private int maxSpeed;
     private boolean reinforcedClutch;
     private int horsePower;
+    private int horsePowerSinceTheLatestModification;
     private int fiscalHorsePower;
     private int stage;
     private int numberOfDoor;
-    private int numberOfPlaces;
-    private double prix;
-    private Long kilometrage;
+    private int numberOfSeats;
+    private double price;
+    private Long mileage;
+    private int mileageSince1stModification;
+    private String trim;
     private String energy;
+    private String fuelEconomy;
+    private String fuelEconomySinceTheLatestModification;
+    private String driveType;
+    private String highPerformanceTuningCompany;
+    private int torque;
+    private int torqueSinceTheLatestModification;
+    private String exaust;
+    private String turbo;
+    private String intercooler;
+    private String airAdmission;
+    private String dumpValve;
+    private String airFilter;
+    private int announceStatus;
     private String gearbox;
     private String outSideColor;
     private String inSideColor;
     private String numberOfOwner;
     private String firstHand;
-    private String euroNorme;
-    private int co2;
-    private Date annee;
+    private Date year;
     private ModelDto model;
     private String category;
     private String options;
@@ -52,12 +66,12 @@ public class AnnonceDto {
         this.localisation = localisation;
     }
 
-    public double getPrix() {
-        return prix;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrix(double prix) {
-        this.prix = prix;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getId() {
@@ -124,12 +138,12 @@ public class AnnonceDto {
         this.make = make;
     }
 
-    public Long getKilometrage() {
-        return kilometrage;
+    public Long getmileage() {
+        return mileage;
     }
 
-    public void setKilometrage(Long kilometrage) {
-        this.kilometrage = kilometrage;
+    public void setmileage(Long mileage) {
+        this.mileage = mileage;
     }
 
     public String getEnergy() {
@@ -173,12 +187,12 @@ public class AnnonceDto {
         this.numberOfDoor = numberOfDoor;
     }
 
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
+    public int getNumberOfSeats() {
+        return numberOfSeats;
     }
 
-    public void setNumberOfPlaces(int numberOfPlaces) {
-        this.numberOfPlaces = numberOfPlaces;
+    public void setNumberOfSeatss(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
     }
 
     public String getOutSideColor() {
@@ -213,28 +227,12 @@ public class AnnonceDto {
         this.firstHand = firstHand;
     }
 
-    public String getEuroNorme() {
-        return euroNorme;
+    public Date getYear() {
+        return year;
     }
 
-    public void setEuroNorme(String euroNorme) {
-        this.euroNorme = euroNorme;
-    }
-
-    public int getCo2() {
-        return co2;
-    }
-
-    public void setCo2(int co2) {
-        this.co2 = co2;
-    }
-
-    public Date getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(Date annee) {
-        this.annee = annee;
+    public void setYear(Date year) {
+        this.year = year;
     }
 
     public Date getPublishedDate() {
@@ -243,5 +241,145 @@ public class AnnonceDto {
 
     public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    public int getHorsePowerSinceTheLatestModification() {
+        return horsePowerSinceTheLatestModification;
+    }
+
+    public void setHorsePowerSinceTheLatestModification(int horsePowerSinceTheLatestModification) {
+        this.horsePowerSinceTheLatestModification = horsePowerSinceTheLatestModification;
+    }
+
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
+    public Long getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Long mileage) {
+        this.mileage = mileage;
+    }
+
+    public int getMileageSince1stModification() {
+        return mileageSince1stModification;
+    }
+
+    public void setMileageSince1stModification(int mileageSince1stModification) {
+        this.mileageSince1stModification = mileageSince1stModification;
+    }
+
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
+
+    public String getFuelEconomy() {
+        return fuelEconomy;
+    }
+
+    public void setFuelEconomy(String fuelEconomy) {
+        this.fuelEconomy = fuelEconomy;
+    }
+
+    public String getFuelEconomySinceTheLatestModification() {
+        return fuelEconomySinceTheLatestModification;
+    }
+
+    public void setFuelEconomySinceTheLatestModification(String fuelEconomySinceTheLatestModification) {
+        this.fuelEconomySinceTheLatestModification = fuelEconomySinceTheLatestModification;
+    }
+
+    public String getDriveType() {
+        return driveType;
+    }
+
+    public void setDriveType(String driveType) {
+        this.driveType = driveType;
+    }
+
+    public String getHighPerformanceTuningCompany() {
+        return highPerformanceTuningCompany;
+    }
+
+    public void setHighPerformanceTuningCompany(String highPerformanceTuningCompany) {
+        this.highPerformanceTuningCompany = highPerformanceTuningCompany;
+    }
+
+    public int getTorque() {
+        return torque;
+    }
+
+    public void setTorque(int torque) {
+        this.torque = torque;
+    }
+
+    public int getTorqueSinceTheLatestModification() {
+        return torqueSinceTheLatestModification;
+    }
+
+    public void setTorqueSinceTheLatestModification(int torqueSinceTheLatestModification) {
+        this.torqueSinceTheLatestModification = torqueSinceTheLatestModification;
+    }
+
+    public String getExaust() {
+        return exaust;
+    }
+
+    public void setExaust(String exaust) {
+        this.exaust = exaust;
+    }
+
+    public String getTurbo() {
+        return turbo;
+    }
+
+    public void setTurbo(String turbo) {
+        this.turbo = turbo;
+    }
+
+    public String getIntercooler() {
+        return intercooler;
+    }
+
+    public void setIntercooler(String intercooler) {
+        this.intercooler = intercooler;
+    }
+
+    public String getAirAdmission() {
+        return airAdmission;
+    }
+
+    public void setAirAdmission(String airAdmission) {
+        this.airAdmission = airAdmission;
+    }
+
+    public String getDumpValve() {
+        return dumpValve;
+    }
+
+    public void setDumpValve(String dumpValve) {
+        this.dumpValve = dumpValve;
+    }
+
+    public String getAirFilter() {
+        return airFilter;
+    }
+
+    public void setAirFilter(String airFilter) {
+        this.airFilter = airFilter;
+    }
+
+    public int getAnnounceStatus() {
+        return announceStatus;
+    }
+
+    public void setAnnounceStatus(int announceStatus) {
+        this.announceStatus = announceStatus;
     }
 }

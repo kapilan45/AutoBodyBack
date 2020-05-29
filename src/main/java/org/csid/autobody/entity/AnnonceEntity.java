@@ -11,7 +11,7 @@ public class AnnonceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&vjs=3
+
     @Column(name = "maxSpeed")
     private int maxSpeed;
 
@@ -56,12 +56,24 @@ https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&
     private String inSideColor;
 
     @Column (name = "fuelEconomySinceTheLatestModification")
-    private  String fuelEconomySinceTheLatestModification;
+    private String fuelEconomySinceTheLatestModification;
+
+    @Column (name = "fuelEconomy")
+    private String fuelEconomy;
+
+    public String getFuelEconomy() {
+        return fuelEconomy;
+    }
+
+    public void setFuelEconomy(String fuelEconomy) {
+        this.fuelEconomy = fuelEconomy;
+    }
 
     // Type de transmission (4 roues motrices/ Propulsion/ Traction)
     @Column (name = "driveType")
     private String driveType;
 
+    //préparateur
     @Column (name = "highPerformanceTuningCompany")
     private String highPerformanceTuningCompany;
 
@@ -94,14 +106,8 @@ https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&
     @Column(name = "firstHand")
     private String firstHand;
 
-    @Column(name = "euroNorme")
-    private String euroNorme;
-
-    @Column(name = "co2")
-    private int co2;
-
-    @Column(name = "prix")
-    private double prix;
+    @Column(name = "price")
+    private double price;
 
     @Column(name = "mileage")
     private Long mileage;
@@ -228,28 +234,12 @@ https://www.indeed.fr/viewjob?jk=bd3e488d9570aaa1&tk=1e9fsd5f496kk800&from=serp&
         this.firstHand = firstHand;
     }
 
-    public String getEuroNorme() {
-        return euroNorme;
+    public double getPrice() {
+        return price;
     }
 
-    public void setEuroNorme(String euroNorme) {
-        this.euroNorme = euroNorme;
-    }
-
-    public int getCo2() {
-        return co2;
-    }
-
-    public void setCo2(int co2) {
-        this.co2 = co2;
-    }
-
-    public double getPrix() {
-        return prix;
-    }
-
-    public void setPrix(double prix) {
-        this.prix = prix;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getMilage() {
