@@ -21,8 +21,23 @@ public class AnnonceEntity {
     @Column(name = "horsePower")
     private int horsePower;
 
+    @Column (name = "horsePowerSinceTheLatestModification")
+    private int horsePowerSinceTheLatestModification;
+
+    @Column (name = "numberOfSeats")
+    private int numberOfSeats;
+
     @Column(name = "fiscalHorsePower")
     private int fiscalHorsePower;
+
+    @Column(name = "year")
+    private int year;
+
+    @Column (name = "mileageSince1stModification")
+    private int mileageSince1stModification;
+
+    @Column (name = "trim")
+    private String trim;
 
     @Column(name = "stage")
     private int stage;
@@ -39,8 +54,38 @@ public class AnnonceEntity {
     @Column(name = "inSideColor")
     private String inSideColor;
 
-    @Column(name = "numberOfOwner")
-    private String numberOfOwner;
+    @Column (name = "fuelEconomySinceTheLatestModification")
+    private  String fuelEconomySinceTheLatestModification;
+
+    @Column (name = "driveType")
+    private String driveType;
+
+    @Column (name = "highPerformanceTuningCompany")
+    private String highPerformanceTuningCompany;
+
+    @Column (name = "torque")
+    private int torque;
+
+    @Column (name = "torqueSinceTheLatestModification")
+    private int torqueSinceTheLatestModification;
+
+    @Column (name = "exaust")
+    private String exaust;
+
+    @Column (name = "turbo")
+    private String turbo;
+
+    @Column (name = "intercooler")
+    private String intercooler;
+
+    @Column (name = "airAdmission")
+    private String airAdmission;
+
+    @Column (name = "dumpValve")
+    private String dumpValve;
+
+    @Column (name = "airFilter")
+    private String airFilter;
 
     @Column(name = "firstHand")
     private String firstHand;
@@ -54,8 +99,8 @@ public class AnnonceEntity {
     @Column(name = "prix")
     private double prix;
 
-    @Column(name = "kilometrage")
-    private Long kilometrage;
+    @Column(name = "mileage")
+    private Long mileage;
 
     @Column(name = "numberOfPlaces")
     private int numberOfPlaces;
@@ -68,6 +113,9 @@ public class AnnonceEntity {
 
     @Column(name = "publishedDate")
     private Date publishedDate;
+
+    @Column (name = "AnnounceStatus")
+    private int announceStatus;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<ImageEntity> images;
@@ -171,14 +219,6 @@ public class AnnonceEntity {
         this.inSideColor = inSideColor;
     }
 
-    public String getNumberOfOwner() {
-        return numberOfOwner;
-    }
-
-    public void setNumberOfOwner(String numberOfOwner) {
-        this.numberOfOwner = numberOfOwner;
-    }
-
     public String getFirstHand() {
         return firstHand;
     }
@@ -211,12 +251,12 @@ public class AnnonceEntity {
         this.prix = prix;
     }
 
-    public Long getKilometrage() {
-        return kilometrage;
+    public Long getMilage() {
+        return mileage;
     }
 
-    public void setKilometrage(Long kilometrage) {
-        this.kilometrage = kilometrage;
+    public void setMilage(Long mileage) {
+        this.mileage = mileage;
     }
 
     public int getNumberOfPlaces() {
@@ -298,4 +338,150 @@ public class AnnonceEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
+    public int getHorsePowerSinceTheLatestModification() {
+        return horsePowerSinceTheLatestModification;
+    }
+
+    public void setHorsePowerSinceTheLatestModification(int horsePowerSinceTheLatestModification) {
+        this.horsePowerSinceTheLatestModification = horsePowerSinceTheLatestModification;
+    }
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMileageSince1stModification() {
+        return mileageSince1stModification;
+    }
+
+    public void setMileageSince1stModification(int mileageSince1stModification) {
+        this.mileageSince1stModification = mileageSince1stModification;
+    }
+
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
+
+    public String getFuelEconomySinceTheLatestModification() {
+        return fuelEconomySinceTheLatestModification;
+    }
+
+    public void setFuelEconomySinceTheLatestModification(String fuelEconomySinceTheLatestModification) {
+        this.fuelEconomySinceTheLatestModification = fuelEconomySinceTheLatestModification;
+    }
+
+    public String getDriveType() {
+        return driveType;
+    }
+
+    public void setDriveType(String driveType) {
+        this.driveType = driveType;
+    }
+
+    public String getHighPerformanceTuningCompany() {
+        return highPerformanceTuningCompany;
+    }
+
+    public void setHighPerformanceTuningCompany(String highPerformanceTuningCompany) {
+        this.highPerformanceTuningCompany = highPerformanceTuningCompany;
+    }
+
+    public int getTorqueSinceTheLatestModification() {
+        return torqueSinceTheLatestModification;
+    }
+
+    public void setTorqueSinceTheLatestModification(int torqueSinceTheLatestModification) {
+        this.torqueSinceTheLatestModification = torqueSinceTheLatestModification;
+    }
+
+    public String getExaust() {
+        return exaust;
+    }
+
+    public void setExaust(String exaust) {
+        this.exaust = exaust;
+    }
+
+    public String getTurbo() {
+        return turbo;
+    }
+
+    public void setTurbo(String turbo) {
+        this.turbo = turbo;
+    }
+
+    public String getIntercooler() {
+        return intercooler;
+    }
+
+    public void setIntercooler(String intercooler) {
+        this.intercooler = intercooler;
+    }
+
+    public String getAirAdmission() {
+        return airAdmission;
+    }
+
+    public void setAirAdmission(String airAdmission) {
+        this.airAdmission = airAdmission;
+    }
+
+    public String getDumpValve() {
+        return dumpValve;
+    }
+
+    public void setDumpValve(String dumpValve) {
+        this.dumpValve = dumpValve;
+    }
+
+    public String getAirFilter() {
+        return airFilter;
+    }
+
+    public void setAirFilter(String airFilter) {
+        this.airFilter = airFilter;
+    }
+
+    public Long getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Long mileage) {
+        this.mileage = mileage;
+    }
+
+    public int getAnnounceStatus() {
+        return announceStatus;
+    }
+
+    public void setAnnounceStatus(int announceStatus) {
+        this.announceStatus = announceStatus;
+    }
+
+    public int getTorque() {
+        return torque;
+    }
+
+    public void setTorque(int torque) {
+        this.torque = torque;
+    }
+
+
 }
