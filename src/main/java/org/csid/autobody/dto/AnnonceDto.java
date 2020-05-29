@@ -38,7 +38,7 @@ public class AnnonceDto {
     private String numberOfOwner;
     private String firstHand;
     private Date year;
-    private ModelDto model;
+    private String model;
     private String category;
     private String options;
     private String make;
@@ -154,11 +154,11 @@ public class AnnonceDto {
         this.energy = energy;
     }
 
-    public ModelDto getModel() {
+    public String getModel() {
         return model;
     }
 
-    public void setModel(ModelDto model) {
+    public void setModel(String model) {
         this.model = model;
     }
 
