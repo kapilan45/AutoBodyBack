@@ -65,12 +65,14 @@ public class AnnonceEntity {
     @Column (name = "highPerformanceTuningCompany")
     private String highPerformanceTuningCompany;
 
+    // couple moteur
     @Column (name = "torque")
     private int torque;
 
     @Column (name = "torqueSinceTheLatestModification")
     private int torqueSinceTheLatestModification;
 
+    // échappement
     @Column (name = "exaust")
     private String exaust;
 
