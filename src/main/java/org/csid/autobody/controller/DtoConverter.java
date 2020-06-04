@@ -17,8 +17,12 @@ public class DtoConverter {
     private static MapperFacade createMapper() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
         mapperFactory.classMap(AnnonceEntity.class, AnnonceDto.class)
-                //.field("category.category","category")
-                //.byDefault()
+                .field("category.category","category")
+                .field("model.model","model")
+                .field("make.make","make")
+                .field("localisation.city","localisation")
+                .field("user.id","user")
+                .byDefault()
                 .register();
 
         return mapperFactory.getMapperFacade();
