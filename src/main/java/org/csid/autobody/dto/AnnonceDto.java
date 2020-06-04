@@ -45,6 +45,7 @@ public class AnnonceDto {
     private String localisation;
     private List<ImageDto> images;
     private Date publishedDate;
+    private int user;
 
     public AnnonceDto(){}
 
@@ -381,5 +382,13 @@ public class AnnonceDto {
 
     public void setAnnounceStatus(int announceStatus) {
         this.announceStatus = announceStatus;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 }

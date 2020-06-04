@@ -31,7 +31,7 @@ public class AnnonceEntity {
     private int fiscalHorsePower;
 
     @Column(name = "year")
-    private int year;
+    private Date year;
 
     @Column (name = "mileageSince1stModification")
     private int mileageSince1stModification;
@@ -338,11 +338,11 @@ public class AnnonceEntity {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public int getYear() {
+    public Date getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Date year) {
         this.year = year;
     }
 
