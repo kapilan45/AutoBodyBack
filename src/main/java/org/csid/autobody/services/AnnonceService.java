@@ -3,15 +3,12 @@ package org.csid.autobody.services;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.entity.*;
-import org.csid.autobody.repository.AnnonceRepository;
-import org.csid.autobody.repository.CategoryRepository;
-import org.csid.autobody.repository.UserRepository;
+import org.csid.autobody.repository.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Security;
 import java.util.List;
 
 @Service
@@ -21,20 +18,24 @@ public class AnnonceService {
     private final AnnonceRepository annonceRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final MakeRepository makeRepository;
+    private final LocalisationRepository localisationRepository;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, LocalisationRepository localisationRepository) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.makeRepository = makeRepository;
+        this.localisationRepository = localisationRepository;
     }
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
 
-        // TODO
-        MakeEntity makeEntity = null;
-        LocalisationEntity localisationEntity = null;
+        CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
+        MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
+        LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
         UserEntity u = userRepository.findByUsername(username);
