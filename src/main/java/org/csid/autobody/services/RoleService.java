@@ -25,5 +25,4 @@ public class RoleService {
     public RoleRepository getRoleRepository() {
         return roleRepository;
     }
-
 }

@@ -32,13 +32,12 @@ public class AnnonceController {
         return annonceService.getAllByPublishedDate();
     }
 
-  /* TODO
 
     @GetMapping("/:user")
     public List<AnnonceDto> getAllByUser(UserDto user) {
         return annonceService.getAllByUser(user);
     }
-*/
+
 
     @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
