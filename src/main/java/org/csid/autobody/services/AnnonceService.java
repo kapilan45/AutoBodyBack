@@ -20,15 +20,13 @@ public class AnnonceService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final MakeRepository makeRepository;
-    private final LocalisationRepository localisationRepository;
     private final ModelRepository modelRepository;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, LocalisationRepository localisationRepository, ModelRepository modelRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, ModelRepository modelRepository) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.makeRepository = makeRepository;
-        this.localisationRepository = localisationRepository;
         this.modelRepository = modelRepository;
     }
 
@@ -37,7 +35,6 @@ public class AnnonceService {
         MakeEntity makeEntity = makeRepository.findByName(annonceDto.getMake());
         ModelEntity modelEntity = modelRepository.findModelByNameAndMake(annonceDto.getModel(),annonceDto.getMake());
         CategoryEntity categoryEntity = categoryRepository.findCategoryByNameAndModel(annonceDto.getCategory(),annonceDto.getModel());
-        LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
@@ -54,7 +51,6 @@ public class AnnonceService {
         annonce.setMake(makeEntity);
         annonce.setModel(modelEntity);
         annonce.setCategory(categoryEntity);
-        annonce.setLocalisation(localisationEntity);
         this.annonceRepository.save(annonce);
     }
 
