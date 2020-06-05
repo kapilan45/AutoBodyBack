@@ -30,7 +30,7 @@ public class CategoryService {
 
     public List<CategoryDto> getAllCategoryByModel(ModelDto modelDto) {
         ModelEntity model = DtoConverter.map(modelDto, ModelEntity.class);
-        List<ModelEntity> all = categoryRepository.findAllCategoryByModel(model.getModel());
+        List<CategoryEntity> all = categoryRepository.findAllCategoryByModel(model.getModel());
         return DtoConverter.mapAsList(all, CategoryDto.class);
     }
 

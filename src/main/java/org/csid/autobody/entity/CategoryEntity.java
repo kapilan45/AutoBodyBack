@@ -8,6 +8,10 @@ import java.util.List;
 public class CategoryEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "category")
     private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,6 +30,14 @@ public class CategoryEntity {
 
     public ModelEntity getModelEntity() {
         return modelEntity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setModelEntity(ModelEntity modelEntity) {

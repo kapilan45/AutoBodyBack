@@ -13,6 +13,7 @@ public class MakeEntity {
 
     @OneToMany
     private List<ModelEntity> model;
+
     public MakeEntity() {
     }
 

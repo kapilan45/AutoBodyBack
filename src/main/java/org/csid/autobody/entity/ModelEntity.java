@@ -1,6 +1,7 @@
 package org.csid.autobody.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Model")
@@ -11,6 +12,9 @@ public class ModelEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<CategoryEntity> category;
 
     public String getModel() {
         return model;

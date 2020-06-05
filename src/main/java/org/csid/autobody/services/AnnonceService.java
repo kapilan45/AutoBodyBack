@@ -32,7 +32,7 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
+        CategoryEntity categoryEntity = categoryRepository.findCategoryByName(annonceDto.getCategory());
         MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
         LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
 
