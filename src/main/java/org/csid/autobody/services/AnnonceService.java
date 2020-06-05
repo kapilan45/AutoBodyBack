@@ -31,7 +31,6 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-
         CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
         MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
         LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
@@ -42,7 +41,7 @@ public class AnnonceService {
 
         // TO DO ANONYMOUS
         if (u == null)
-            u = userRepository.getOne(1L);
+            u = userRepository.getOne(2L);
 
 
         //AnnonceEntity annonce = new AnnonceEntity();

@@ -1,11 +1,11 @@
 package org.csid.autobody.controller;
 
-import org.csid.autobody.dto.AnnonceDto;
-import org.csid.autobody.dto.MakeDto;
-import org.csid.autobody.dto.ModelDto;
-import org.csid.autobody.dto.UserDto;
+import org.csid.autobody.dto.*;
+import org.csid.autobody.entity.CategoryEntity;
+import org.csid.autobody.entity.ModelEntity;
 import org.csid.autobody.entity.UserEntity;
-import org.csid.autobody.services.AnnonceService;
+import org.csid.autobody.services.*;
+import org.csid.autobody.services.MakeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +16,15 @@ import java.util.List;
 public class AnnonceController {
 
     private final AnnonceService annonceService;
+    private final MakeService makeService;
+    private final ModelService modelService;
+    private final CategoryService categoryService;
 
-    public AnnonceController(AnnonceService annonceService) {
+    public AnnonceController(AnnonceService annonceService, MakeService makeService, ModelService modelService,CategoryService categoryService) {
         this.annonceService = annonceService;
+        this.makeService = makeService;
+        this.modelService = modelService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
@@ -34,28 +40,27 @@ public class AnnonceController {
     }
 */
 
-    @PostMapping
+    @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
         this.annonceService.saveAnnonce(annonceDto);
     }
 
 
     @GetMapping("/makes")
-    public MakeDto getAllMake(){
-        // TODO return toutes markes présents dans base de onnés
-        return  null;
+    public List<MakeDto> getAllMake(){
+        return makeService.getMakes();
     }
 
-    @GetMapping("/models")
-    public MakeDto getModel(@RequestBody MakeDto make){
-        // TODO return toutes modele de la marque 'make' présent dans la body
-        return  null;
+    @GetMapping(path = { "/models"})
+    public List<ModelDto> getModelsByMake(@RequestBody MakeDto make){
+        List<ModelDto> models = modelService.getAllModelByMake(make);
+        return models;
     }
 
     @GetMapping("/category")
-    public MakeDto getCategory(@RequestBody ModelDto model){
-        // TODO return toutes modele de la modeèle 'model' présent dans la body
-        return  null;
+    public List<CategoryDto> getCategoriesByModel(@RequestBody ModelDto model){
+        List<CategoryDto> categories = categoryService.getAllCategoryByModel(model);
+        return categories;
     }
 
 }

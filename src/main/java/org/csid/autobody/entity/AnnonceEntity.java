@@ -33,6 +33,9 @@ public class AnnonceEntity {
     @Column(name = "year")
     private Date year;
 
+    @Column(name = "mileage")
+    private Long mileage;
+
     @Column (name = "mileageSince1stModification")
     private int mileageSince1stModification;
     
@@ -108,9 +111,6 @@ public class AnnonceEntity {
 
     @Column(name = "price")
     private double price;
-
-    @Column(name = "mileage")
-    private Long mileage;
 
     @Column(name = "numberOfDoor")
     private int numberOfDoor;
