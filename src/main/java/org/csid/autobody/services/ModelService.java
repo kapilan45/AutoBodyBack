@@ -6,9 +6,11 @@ import org.csid.autobody.entity.ModelEntity;
 import org.csid.autobody.repository.ModelRepository;
 import org.csid.autobody.dto.MakeDto;
 import org.csid.autobody.entity.MakeEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ModelService {
 
     private ModelRepository modelRepository;
@@ -25,7 +27,7 @@ public class ModelService {
 
     public List<ModelDto> getAllModelByMake(MakeDto makeDto) {
         MakeEntity make = DtoConverter.map(makeDto, MakeEntity.class);
-        List<ModelEntity> all = modelRepository.findAllModelByMake(make);
+        List<ModelEntity> all = modelRepository.findAllModelByMake(make.getMake());
         return DtoConverter.mapAsList(all, ModelDto.class);
     }
 

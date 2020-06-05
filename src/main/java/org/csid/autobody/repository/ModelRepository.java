@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ModelRepository extends JpaRepository<ModelEntity, String> {
 
-    @Query("select u from ModelEntity where make = ?1")
-    List<ModelEntity> findAllModelByMake(MakeEntity make);
+    @Query("select u from ModelEntity u where u.make = ?1")
+    List<ModelEntity> findAllModelByMake(String make);
 
     }
 

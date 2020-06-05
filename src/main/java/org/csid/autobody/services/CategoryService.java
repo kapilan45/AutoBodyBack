@@ -9,9 +9,11 @@ import org.csid.autobody.entity.MakeEntity;
 import org.csid.autobody.entity.ModelEntity;
 import org.csid.autobody.repository.CategoryRepository;
 import org.csid.autobody.repository.MakeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
@@ -28,7 +30,7 @@ public class CategoryService {
 
     public List<CategoryDto> getAllCategoryByModel(ModelDto modelDto) {
         ModelEntity model = DtoConverter.map(modelDto, ModelEntity.class);
-        List<ModelEntity> all = categoryRepository.findAllCategoryByModel(model);
+        List<ModelEntity> all = categoryRepository.findAllCategoryByModel(model.getModel());
         return DtoConverter.mapAsList(all, CategoryDto.class);
     }
 

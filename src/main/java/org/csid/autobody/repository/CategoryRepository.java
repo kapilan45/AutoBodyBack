@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, String> {
 
-    @Query("select u from CategoryEntity where model = ?1")
-    List<ModelEntity> findAllCategoryByModel(ModelEntity model);
+    @Query("select u from CategoryEntity u where u.modelEntity = ?1")
+    List<ModelEntity> findAllCategoryByModel(String model);
 
 
 }

@@ -5,9 +5,11 @@ import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.dto.MakeDto;
 import org.csid.autobody.entity.MakeEntity;
 import org.csid.autobody.repository.MakeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MakeService {
 
     private MakeRepository makeRepository;
