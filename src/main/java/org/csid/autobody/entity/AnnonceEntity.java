@@ -142,7 +142,6 @@ public class AnnonceEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
-
     public AnnonceEntity() { }
 
     public Long getId() {

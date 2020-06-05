@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +43,7 @@ public class AnnonceService {
     public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
 
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
+        CategoryEntity categoryEntity = categoryRepository.findCategoryByName(annonceDto.getCategory());
         MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
 
         // Username est récupéré avec UserService.getUserNameWithToken(userToken)
@@ -72,15 +73,14 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    /* TODO
-
 
     public List<AnnonceDto> getAllByUser(UserDto userDto) {
         UserEntity user = DtoConverter.map(userDto, UserEntity.class);
-        List<AnnonceEntity> all = annonceRepository.findByUser(user);
+        List<AnnonceEntity> all = annonceRepository.findByUser(user.getId());
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
+    /*
     public List<AnnonceDto> getAllByFilter(String filter){
         List<AnnonceEntity> all = annonceRepository.findAll();
         return DtoConverter.mapAsList(all, AnnonceDto.class);

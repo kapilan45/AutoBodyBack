@@ -41,9 +41,8 @@ public class AnnonceController {
 */
 
     @PostMapping("/save")
-    public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader(name = "userToken") String userToken){
-
-        this.annonceService.saveAnnonce(annonceDto, userToken);
+    public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
+        this.annonceService.saveAnnonce(annonceDto);
     }
 
 
@@ -52,10 +51,10 @@ public class AnnonceController {
         return makeService.getMakes();
     }
 
-    @GetMapping("/models")
-    public String getModelsByMake(@RequestParam(name = "make") String marque){
-        //List<ModelDto> models = modelService.getAllModelByMake(make);
-        return marque;
+    @GetMapping(path = { "/models"})
+    public List<ModelDto> getModelsByMake(@RequestBody MakeDto make){
+        List<ModelDto> models = modelService.getAllModelByMake(make);
+        return models;
     }
 
     @GetMapping("/category")

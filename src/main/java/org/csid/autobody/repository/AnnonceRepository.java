@@ -9,14 +9,13 @@ import java.util.List;
 
 public interface AnnonceRepository extends JpaRepository<AnnonceEntity, Long> {
 
-    // search by last published date
-   // List<AnnonceEntity> findByPublishedDate();
-
     List<AnnonceEntity> findAllByOrderByPublishedDateAsc();
 
-    // search all annonces of specified user
-    //List<AnnonceEntity> findByUser(UserEntity user);
+    List<AnnonceEntity> findAllByOrderByPublishedDateDesc();
 
-    //@Query("SELECT a from AnnonceEntity a where a.prix > ?1 and a.prix < ?2")
-   // List<AnnonceEntity> findByPrixBetween(int minPrix, int maxPrix);
+    @Query("select u from AnnonceEntity u where u.user = ?1")
+    List<AnnonceEntity> findByUser(Long userId);
+
+    @Query("SELECT u from AnnonceEntity u where u.price > ?1 and u.price < ?2")
+    List<AnnonceEntity> findByPriceBetween(int minPrix, int maxPrix);
 }

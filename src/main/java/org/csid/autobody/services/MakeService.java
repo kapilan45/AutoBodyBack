@@ -24,6 +24,10 @@ public class MakeService {
         return DtoConverter.map(this.makeRepository.save(makeEntity), MakeDto.class);
     }
 
+    public MakeDto getByMake(String makeName){
+        return DtoConverter.map(this.makeRepository.findById(makeName), MakeDto.class);
+    }
+
     public List<MakeDto> getMakes() {
         // TODO getByUser
         List<MakeEntity> makes = this.makeRepository.findAll();

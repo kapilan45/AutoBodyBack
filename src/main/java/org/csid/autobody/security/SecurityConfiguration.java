@@ -47,21 +47,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.cors().configurationSource( corsConfigurationSource())
                 .and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/cars/**").permitAll()
-                .antMatchers("/final/**").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/*").permitAll()
-                .anyRequest().authenticated()
-                /*.and()
+                    .antMatchers("/","/api/**","/users/**","/login/**","/cars/**","/final/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/homepage.html",true)
-                .failureUrl("/login.html?error=true")*/
-                .and().httpBasic();
+                    .loginPage("/login").permitAll()
+                    .loginProcessingUrl("/perform_login")
+                    .defaultSuccessUrl("/homepage.html",true)
+                    .failureUrl("/login.html?error=true")
+                    .and()
+                .logout()
+                    .permitAll()
+                    .and()
+                .httpBasic();
 
         auth.headers().frameOptions().sameOrigin();
         auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));
