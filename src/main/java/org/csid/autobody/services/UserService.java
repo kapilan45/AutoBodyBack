@@ -56,6 +56,8 @@ public class UserService {
             System.out.println("Password doesn't match");
     }
 
+
+
     @Transactional(readOnly = true)
     public List<String> findAllUsernames(){
         List<String> usernamesList= new ArrayList<>();
@@ -83,6 +85,16 @@ public class UserService {
 
     public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
+    }
+
+
+    public UserDto getCurrentUser(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String) auth.getPrincipal();
+        UserEntity u = userRepository.findByUsername(username);
+
+        return DtoConverter.map(u,UserDto.class);
     }
 
     public UserEntity save(UserDto userDto) {

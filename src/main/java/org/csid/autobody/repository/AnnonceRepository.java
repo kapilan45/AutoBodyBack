@@ -13,6 +13,10 @@ public interface AnnonceRepository extends JpaRepository<AnnonceEntity, Long> {
 
     List<AnnonceEntity> findAllByOrderByPublishedDateDesc();
 
+    List<AnnonceEntity> findAllByOrderByPriceAsc();
+
+    List<AnnonceEntity> findAllByOrderByPriceDesc();
+
     @Query("select u from AnnonceEntity u where u.user = ?1")
     List<AnnonceEntity> findByUser(Long userId);
 

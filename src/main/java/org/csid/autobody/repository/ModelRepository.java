@@ -11,5 +11,8 @@ public interface ModelRepository extends JpaRepository<ModelEntity, String> {
     @Query("select u from ModelEntity u where u.make = ?1")
     List<ModelEntity> findAllModelByMake(String make);
 
+    @Query("select model from ModelEntity u where u.model = ?1 and u.make = ?2")
+    ModelEntity findModelByNameAndMake(String model,String make);
+
     }
 

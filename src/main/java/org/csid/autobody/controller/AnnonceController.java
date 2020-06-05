@@ -1,9 +1,6 @@
 package org.csid.autobody.controller;
 
 import org.csid.autobody.dto.*;
-import org.csid.autobody.entity.CategoryEntity;
-import org.csid.autobody.entity.ModelEntity;
-import org.csid.autobody.entity.UserEntity;
 import org.csid.autobody.services.*;
 import org.csid.autobody.services.MakeService;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +16,14 @@ public class AnnonceController {
     private final MakeService makeService;
     private final ModelService modelService;
     private final CategoryService categoryService;
+    private final UserService userService;
 
-    public AnnonceController(AnnonceService annonceService, MakeService makeService, ModelService modelService,CategoryService categoryService) {
+    public AnnonceController(AnnonceService annonceService, MakeService makeService, ModelService modelService, CategoryService categoryService, UserService userService) {
         this.annonceService = annonceService;
         this.makeService = makeService;
         this.modelService = modelService;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -35,8 +34,7 @@ public class AnnonceController {
 
     @GetMapping("/:user")
     public List<AnnonceDto> getAllByUser() {
-        UserDto user = null;
-        return annonceService.getAllByUser(user);
+        return annonceService.getAllByUser(userService.getCurrentUser());
     }
 
 

@@ -21,19 +21,22 @@ public class AnnonceService {
     private final UserRepository userRepository;
     private final MakeRepository makeRepository;
     private final LocalisationRepository localisationRepository;
+    private final ModelRepository modelRepository;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, LocalisationRepository localisationRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, LocalisationRepository localisationRepository, ModelRepository modelRepository) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.makeRepository = makeRepository;
         this.localisationRepository = localisationRepository;
+        this.modelRepository = modelRepository;
     }
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        CategoryEntity categoryEntity = categoryRepository.findCategoryByName(annonceDto.getCategory());
-        MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
+        MakeEntity makeEntity = makeRepository.findByName(annonceDto.getMake());
+        ModelEntity modelEntity = modelRepository.findModelByNameAndMake(annonceDto.getModel(),annonceDto.getMake());
+        CategoryEntity categoryEntity = categoryRepository.findCategoryByNameAndModel(annonceDto.getCategory(),annonceDto.getModel());
         LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -42,13 +45,15 @@ public class AnnonceService {
 
         // TO DO ANONYMOUS
         if (u == null)
-            u = userRepository.getOne(2L);
+            u = userRepository.getOne(1L);
 
 
         //AnnonceEntity annonce = new AnnonceEntity();
-        annonce.setCategory(categoryEntity);
+
         annonce.setUser(u);
         annonce.setMake(makeEntity);
+        annonce.setModel(modelEntity);
+        annonce.setCategory(categoryEntity);
         annonce.setLocalisation(localisationEntity);
         this.annonceRepository.save(annonce);
     }
