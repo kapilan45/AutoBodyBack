@@ -20,7 +20,6 @@ public class DtoConverter {
                 .field("category.category","category")
                 .field("model.model","model")
                 .field("make.make","make")
-                .field("localisation.city","localisation")
                 .field("user.id","user")
                 .byDefault()
                 .register();

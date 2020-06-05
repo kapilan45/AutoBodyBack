@@ -22,7 +22,7 @@ import  java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
-@RequestMapping("/api/control")
+@RequestMapping("/api/security")
 public class UserController {
 /*
     private final JdbcUserDetailsManager jdbcUserDetailsManager;
@@ -92,14 +92,13 @@ public class UserController {
         return Collections.singletonList(userDetailsService.loadUserByUsername(username));
     }
 
-    @PostMapping
+    @PostMapping("update")
     public void changePassword(@RequestBody PasswordUpdate passwordUpdate){
         userService.changePassword(passwordUpdate.getOldPassword(),passwordUpdate.getNewPassword());
     }
 
     @PostMapping("register")
     public UserDto createUser(@RequestBody UserDto user){
-        // TODO une fois sauvegarder user, il faut connecter
         UserEntity userCreated = this.userService.save(user);
         return DtoConverter.map(userCreated, UserDto.class);
     }

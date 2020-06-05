@@ -1,5 +1,7 @@
 package org.csid.autobody.services;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.RoleEntity;
@@ -19,6 +21,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    public static final String SECRET = "SecretKeyToGenJWTs";
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -96,5 +99,12 @@ public class UserService {
             userEntity.setRole(role);
         }
         return this.userRepository.save(userEntity);
+    }
+
+    public String getUserNameWithToken(String token){
+        return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                .build()
+                .verify(token)
+                .getSubject();
     }
 }

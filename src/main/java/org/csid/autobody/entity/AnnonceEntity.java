@@ -121,8 +121,11 @@ public class AnnonceEntity {
     @Column(name = "publishedDate")
     private Date publishedDate;
 
-    @Column (name = "AnnounceStatus")
+    @Column (name = "announceStatus")
     private int announceStatus;
+
+    @Column(name = "localisation")
+    private String localisation;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<ImageEntity> images;
@@ -135,9 +138,6 @@ public class AnnonceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private LocalisationEntity localisation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
@@ -249,6 +249,14 @@ public class AnnonceEntity {
         this.mileage = mileage;
     }
 
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
+
     public int getNumberOfDoor() {
         return numberOfDoor;
     }
@@ -303,14 +311,6 @@ public class AnnonceEntity {
 
     public void setMake(MakeEntity make) {
         this.make = make;
-    }
-
-    public LocalisationEntity getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(LocalisationEntity localisation) {
-        this.localisation = localisation;
     }
 
     public UserEntity getUser() {

@@ -7,12 +7,12 @@ import java.util.List;
 @Table(name = "Make")
 public class MakeEntity {
 
-
     @Id
     private String make;
 
     @OneToMany
     private List<ModelEntity> model;
+
     public MakeEntity() {
     }
 

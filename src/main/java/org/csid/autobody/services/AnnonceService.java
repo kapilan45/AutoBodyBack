@@ -1,40 +1,51 @@
 package org.csid.autobody.services;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class AnnonceService {
 
+    public static final String SECRET = "SecretKeyToGenJWTs";
+    public static final long EXPIRATION_TIME = 864_000_000; // 10 days
+    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String HEADER_STRING = "Authorization";
+    public static final String SIGN_UP_URL = "/users/sign-up";
+
     private final AnnonceRepository annonceRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final MakeRepository makeRepository;
-    private final LocalisationRepository localisationRepository;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, LocalisationRepository localisationRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.makeRepository = makeRepository;
-        this.localisationRepository = localisationRepository;
     }
 
-    public void saveAnnonce(AnnonceDto annonceDto) {
+
+    public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
+
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         CategoryEntity categoryEntity = categoryRepository.findById(annonceDto.getCategory()).orElse(null);
         MakeEntity makeEntity = makeRepository.findById(annonceDto.getMake()).orElse(null);
-        LocalisationEntity localisationEntity = localisationRepository.findById(annonceDto.getLocalisation()).orElse(null);
 
+        // Username est récupéré avec UserService.getUserNameWithToken(userToken)
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
         UserEntity u = userRepository.findByUsername(username);
@@ -48,7 +59,6 @@ public class AnnonceService {
         annonce.setCategory(categoryEntity);
         annonce.setUser(u);
         annonce.setMake(makeEntity);
-        annonce.setLocalisation(localisationEntity);
         this.annonceRepository.save(annonce);
     }
 
