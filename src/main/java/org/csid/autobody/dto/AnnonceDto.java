@@ -140,14 +140,6 @@ public class AnnonceDto {
         this.make = make;
     }
 
-    public Long getmileage() {
-        return mileage;
-    }
-
-    public void setmileage(Long mileage) {
-        this.mileage = mileage;
-    }
-
     public String getEnergy() {
         return energy;
     }

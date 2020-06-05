@@ -34,7 +34,7 @@ public class AnnonceController {
     }
 */
 
-    @PostMapping
+    @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
         this.annonceService.saveAnnonce(annonceDto);
     }

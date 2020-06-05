@@ -1,9 +1,10 @@
-package org.csid.autobody.security;
+package org.csid.autobody.controller;
 
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
+import org.csid.autobody.security.PasswordUpdate;
 import org.csid.autobody.services.CustomUserDetailsService;
 import org.csid.autobody.services.RoleService;
 import org.csid.autobody.services.UserService;
@@ -21,7 +22,7 @@ import  java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
-@RequestMapping("/api/users")
+@RequestMapping("/api/control")
 public class UserController {
 /*
     private final JdbcUserDetailsManager jdbcUserDetailsManager;
@@ -73,7 +74,6 @@ public class UserController {
     }
 
 
-
     @GetMapping("me")
     public List<UserDetails> getCurrentUser(){
 
@@ -85,8 +85,6 @@ public class UserController {
             String username = user.toString();
             return Collections.singletonList(userDetailsService.loadUserByUsername(username));
         }
-
-
     }
 
     @GetMapping("{username}")
@@ -99,7 +97,7 @@ public class UserController {
         userService.changePassword(passwordUpdate.getOldPassword(),passwordUpdate.getNewPassword());
     }
 
-    @PostMapping("create")
+    @PostMapping("register")
     public UserDto createUser(@RequestBody UserDto user){
         // TODO une fois sauvegarder user, il faut connecter
         UserEntity userCreated = this.userService.save(user);
