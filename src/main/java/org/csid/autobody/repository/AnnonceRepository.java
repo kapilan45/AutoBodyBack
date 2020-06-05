@@ -10,9 +10,9 @@ import java.util.List;
 public interface AnnonceRepository extends JpaRepository<AnnonceEntity, Long> {
 
     // search by last published date
-    //List<AnnonceEntity> findByPublishedDate ();
+   // List<AnnonceEntity> findByPublishedDate();
 
-    //List<AnnonceEntity> findAllByOrderByPublishedDateAsc();
+    List<AnnonceEntity> findAllByOrderByPublishedDateAsc();
 
     // search all annonces of specified user
     //List<AnnonceEntity> findByUser(UserEntity user);

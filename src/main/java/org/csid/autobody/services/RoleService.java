@@ -10,6 +10,7 @@ public class RoleService {
 
     @Autowired
     RoleRepository roleRepository;
+
     public RoleEntity findByRoleName(String roleName){
         RoleEntity roleEntity = null;
 

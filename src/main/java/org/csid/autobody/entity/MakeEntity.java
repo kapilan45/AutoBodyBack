@@ -13,7 +13,6 @@ public class MakeEntity {
     public MakeEntity() {
     }
 
-
     public String getMake() {
         return make;
     }

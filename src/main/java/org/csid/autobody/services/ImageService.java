@@ -22,11 +22,10 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public boolean saveImage(ImageDto image) {
+    public ImageDto saveImage(ImageDto image) {
 
         ImageEntity imageEntity = DtoConverter.map(image, ImageEntity.class);
-        this.imageRepository.save(imageEntity);
-        return true;
+        return DtoConverter.map(this.imageRepository.save(imageEntity), ImageDto.class);
     }
 
     public List<ImageDto> getImageUser(String user) {
