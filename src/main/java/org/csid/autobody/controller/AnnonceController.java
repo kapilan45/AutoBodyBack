@@ -34,7 +34,8 @@ public class AnnonceController {
 
 
     @GetMapping("/:user")
-    public List<AnnonceDto> getAllByUser(UserDto user) {
+    public List<AnnonceDto> getAllByUser() {
+        UserDto user = null;
         return annonceService.getAllByUser(user);
     }
 
@@ -50,8 +51,9 @@ public class AnnonceController {
         return makeService.getMakes();
     }
 
-    @GetMapping(path = { "/models"})
-    public List<ModelDto> getModelsByMake(@RequestBody MakeDto make){
+    @GetMapping("/models")
+    public List<ModelDto> getModelsByMake(@RequestParam(name = "make") String makeName){
+        MakeDto make = makeService.getByMake(makeName);
         List<ModelDto> models = modelService.getAllModelByMake(make);
         return models;
     }
