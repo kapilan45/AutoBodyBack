@@ -30,6 +30,7 @@ public class JsonAuthenticationFilter  extends UsernamePasswordAuthenticationFil
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
         try {
+            // TODO request.getHeaders();
             UserCredentials userCredentials = objectMapper.readValue(request.getInputStream(), UserCredentials.class);
 
             return authenticationManager.authenticate(

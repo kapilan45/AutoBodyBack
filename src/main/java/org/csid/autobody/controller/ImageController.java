@@ -6,6 +6,7 @@ import org.csid.autobody.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +23,7 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping()
-    public boolean uplaodImage(@RequestParam("image") MultipartFile file) throws IOException {
+    public ImageDto uplaodImage(@RequestParam("image") MultipartFile file) throws IOException {
         ImageDto image = new ImageDto();
         image.setId((long) 1);
         image.setPath(file.getBytes());

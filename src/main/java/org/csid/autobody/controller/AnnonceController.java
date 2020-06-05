@@ -1,6 +1,8 @@
 package org.csid.autobody.controller;
 
 import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.dto.MakeDto;
+import org.csid.autobody.dto.ModelDto;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.UserEntity;
 import org.csid.autobody.services.AnnonceService;
@@ -19,10 +21,12 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
-  /* TODO @GetMapping
+    @GetMapping
     public List<AnnonceDto> getAllByPublishedDate(){
         return annonceService.getAllByPublishedDate();
     }
+
+  /* TODO
 
     @GetMapping("/:user")
     public List<AnnonceDto> getAllByUser(UserDto user) {
@@ -36,5 +40,22 @@ public class AnnonceController {
     }
 
 
+    @GetMapping("/makes")
+    public MakeDto getAllMake(){
+        // TODO return toutes markes présents dans base de onnés
+        return  null;
+    }
+
+    @GetMapping("/models")
+    public MakeDto getModel(@RequestBody MakeDto make){
+        // TODO return toutes modele de la marque 'make' présent dans la body
+        return  null;
+    }
+
+    @GetMapping("/category")
+    public MakeDto getCategory(@RequestBody ModelDto model){
+        // TODO return toutes modele de la modeèle 'model' présent dans la body
+        return  null;
+    }
 
 }

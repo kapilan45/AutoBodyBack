@@ -143,8 +143,7 @@ public class AnnonceEntity {
     private UserEntity user;
 
 
-    public AnnonceEntity() {
-    }
+    public AnnonceEntity() { }
 
     public Long getId() {
         return id;

@@ -58,11 +58,13 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    /* TODO
     public List<AnnonceDto> getAllByPublishedDate(){
-        List<AnnonceEntity> all = annonceRepository.findByPublishedDate();
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateAsc();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
+
+    /* TODO
+
 
     public List<AnnonceDto> getAllByUser(UserDto userDto) {
         UserEntity user = DtoConverter.map(userDto, UserEntity.class);

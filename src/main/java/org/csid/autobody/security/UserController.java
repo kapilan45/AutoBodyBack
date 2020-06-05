@@ -1,5 +1,6 @@
 package org.csid.autobody.security;
 
+import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
@@ -99,8 +100,10 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public void createUser(@RequestBody UserDto user){
-        this.userService.save(user);
+    public UserDto createUser(@RequestBody UserDto user){
+        // TODO une fois sauvegarder user, il faut connecter
+        UserEntity userCreated = this.userService.save(user);
+        return DtoConverter.map(userCreated, UserDto.class);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
