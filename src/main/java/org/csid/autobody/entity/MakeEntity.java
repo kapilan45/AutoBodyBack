@@ -7,7 +7,6 @@ import java.util.List;
 @Table(name = "Make")
 public class MakeEntity {
 
-
     @Id
     private String make;
 

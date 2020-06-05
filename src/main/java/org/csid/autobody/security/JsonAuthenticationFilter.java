@@ -34,13 +34,6 @@ public class JsonAuthenticationFilter  extends UsernamePasswordAuthenticationFil
     public static final long EXPIRATION_TIME = 864_000_000; // 10 days
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-    public static final String SIGN_UP_URL = "/users/sign-up";
-
-    private static final long serialVersionUID = -2550185165626007488L;
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
-
-    @Value("${jwt.secret}")
-    private String secret;
 
     public JsonAuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         super();

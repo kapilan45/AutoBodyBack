@@ -62,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic();
 
         auth.headers().frameOptions().sameOrigin();
-        auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper())).addFilter(new JWTAuthorizationFilter(authenticationManager()));
+        auth.addFilter(new JsonAuthenticationFilter(authenticationManager(), new ObjectMapper()));
 
     }
 
