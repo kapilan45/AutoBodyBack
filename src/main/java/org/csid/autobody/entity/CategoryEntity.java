@@ -15,7 +15,7 @@ public class CategoryEntity {
     private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ModelEntity modelEntity;
+    private ModelEntity model;
 
     public CategoryEntity() {
     }
@@ -28,8 +28,12 @@ public class CategoryEntity {
         this.category = category;
     }
 
-    public ModelEntity getModelEntity() {
-        return modelEntity;
+    public ModelEntity getModel() {
+        return model;
+    }
+
+    public void setModel(ModelEntity model) {
+        this.model = model;
     }
 
     public Long getId() {
@@ -38,9 +42,5 @@ public class CategoryEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setModelEntity(ModelEntity modelEntity) {
-        this.modelEntity = modelEntity;
     }
 }

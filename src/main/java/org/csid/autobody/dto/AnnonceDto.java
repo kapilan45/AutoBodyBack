@@ -1,6 +1,5 @@
 package org.csid.autobody.dto;
 
-import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class AnnonceDto {
     private String options;
     private String make;
     private String localisation;
-    private List<ImageDto> images;
+    private List<UploadDto> images;
     private Date publishedDate;
     private int user;
 
@@ -157,11 +156,11 @@ public class AnnonceDto {
     }
 
 
-    public List<ImageDto> getImages() {
+    public List<UploadDto> getImages() {
         return images;
     }
 
-    public void setImages(List<ImageDto> images) {
+    public void setImages(List<UploadDto> images) {
         this.images = images;
     }
 

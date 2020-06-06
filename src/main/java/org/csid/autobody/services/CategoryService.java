@@ -23,14 +23,12 @@ public class CategoryService {
     }
 
     public CategoryDto saveCategory(CategoryDto category) {
-
         CategoryEntity categoryEntity = DtoConverter.map(category, CategoryEntity.class);
         return DtoConverter.map(this.categoryRepository.save(categoryEntity), CategoryDto.class);
     }
 
-    public List<CategoryDto> getAllCategoryByModel(ModelDto modelDto) {
-        ModelEntity model = DtoConverter.map(modelDto, ModelEntity.class);
-        List<CategoryEntity> all = categoryRepository.findAllCategoryByModel(model.getModel());
+    public List<CategoryDto> getAllCategoryByModel(ModelEntity model) {
+        List<CategoryEntity> all = categoryRepository.findAllByModel(model);
         return DtoConverter.mapAsList(all, CategoryDto.class);
     }
 

@@ -20,15 +20,17 @@ public class ModelService {
     }
 
     public ModelDto saveModel(ModelDto model) {
-
         ModelEntity modelEntity = DtoConverter.map(model, ModelEntity.class);
         return DtoConverter.map(this.modelRepository.save(modelEntity), ModelDto.class);
     }
 
-    public List<ModelDto> getAllModelByMake(MakeDto makeDto) {
-        MakeEntity make = DtoConverter.map(makeDto, MakeEntity.class);
-        List<ModelEntity> all = modelRepository.findAllModelByMake(make.getMake());
-        return DtoConverter.mapAsList(all, ModelDto.class);
+    public List<ModelDto> getModelsWithMake(MakeEntity make) {
+        List<ModelEntity> models = modelRepository.findAllByMake(make);
+        System.out.println(models.size());
+        return DtoConverter.mapAsList(models, ModelDto.class);
     }
 
+    public ModelEntity getOneModel(String model) {
+        return this.modelRepository.findByModel(model);
+    }
 }

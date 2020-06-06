@@ -27,8 +27,8 @@ public class AnnonceController {
     }
 
     @GetMapping
-    public List<AnnonceDto> getAllByPublishedDate(){
-        return annonceService.getAllByPublishedDate();
+    public List<AnnonceDto> getAllRecent(){
+        return annonceService.getAllRecent();
     }
 
 
@@ -37,29 +37,9 @@ public class AnnonceController {
         return annonceService.getAllByUser(userService.getCurrentUser());
     }
 
-
     @PostMapping("/save")
-    public void saveAnnonce(@RequestBody AnnonceDto annonceDto){
+    public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader(name = "userToken") String userToken){
         this.annonceService.saveAnnonce(annonceDto);
-    }
-
-
-    @GetMapping("/makes")
-    public List<MakeDto> getAllMake(){
-        return makeService.getMakes();
-    }
-
-    @GetMapping("/models")
-    public List<ModelDto> getModelsByMake(@RequestParam(name = "make") String makeName){
-        MakeDto make = makeService.getByMake(makeName);
-        List<ModelDto> models = modelService.getAllModelByMake(make);
-        return models;
-    }
-
-    @GetMapping("/category")
-    public List<CategoryDto> getCategoriesByModel(@RequestBody ModelDto model){
-        List<CategoryDto> categories = categoryService.getAllCategoryByModel(model);
-        return categories;
     }
 
 }

@@ -19,20 +19,18 @@ public class MakeService {
     }
 
     public MakeDto saveModel(MakeDto make) {
-
         MakeEntity makeEntity = DtoConverter.map(make, MakeEntity.class);
         return DtoConverter.map(this.makeRepository.save(makeEntity), MakeDto.class);
     }
 
-    public MakeDto getByMake(String makeName){
-        return DtoConverter.map(this.makeRepository.findById(makeName), MakeDto.class);
+    public MakeEntity getByName(String makeName){
+        MakeEntity make = this.makeRepository.findByMake(makeName);
+        return make;
     }
 
-    public List<MakeDto> getMakes() {
-        // TODO getByUser
+    public List<MakeDto> getAllMakes() {
         List<MakeEntity> makes = this.makeRepository.findAll();
         return DtoConverter.mapAsList(makes, MakeDto.class);
     }
-
 }
 

@@ -32,9 +32,9 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        MakeEntity makeEntity = makeRepository.findByName(annonceDto.getMake());
-        ModelEntity modelEntity = modelRepository.findModelByNameAndMake(annonceDto.getModel(),annonceDto.getMake());
-        CategoryEntity categoryEntity = categoryRepository.findCategoryByNameAndModel(annonceDto.getCategory(),annonceDto.getModel());
+       // MakeEntity makeEntity = makeRepository.findByName(annonceDto.getMake());
+       // ModelEntity modelEntity = modelRepository.findModelByNameAndMake(annonceDto.getModel(),annonceDto.getMake());
+        //CategoryEntity categoryEntity = categoryRepository.findCategoryByNameAndModel(annonceDto.getCategory(),annonceDto.getModel());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
@@ -48,9 +48,9 @@ public class AnnonceService {
         //AnnonceEntity annonce = new AnnonceEntity();
 
         annonce.setUser(u);
-        annonce.setMake(makeEntity);
-        annonce.setModel(modelEntity);
-        annonce.setCategory(categoryEntity);
+        annonce.setMake(null);
+      //  annonce.setModel(modelEntity);
+        annonce.setCategory(null);
         this.annonceRepository.save(annonce);
     }
 
@@ -59,7 +59,7 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    public List<AnnonceDto> getAllByPublishedDate(){
+    public List<AnnonceDto> getAllRecent(){
         List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateAsc();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }

@@ -2,13 +2,9 @@ package org.csid.autobody.dto;
 
 
 public class ModelDto {
-
     private String model;
-    private MakeDto makeDto;
 
-    public ModelDto(){
-
-    }
+    public ModelDto(){}
 
     public String getModel() {
         return model;
@@ -18,11 +14,4 @@ public class ModelDto {
         this.model = model;
     }
 
-    public MakeDto getMakeDto() {
-        return makeDto;
-    }
-
-    public void setMakeDto(MakeDto makeDto) {
-        this.makeDto = makeDto;
-    }
 }

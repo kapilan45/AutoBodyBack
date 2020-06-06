@@ -8,12 +8,25 @@ import java.util.List;
 public class MakeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "make", unique = true)
     private String make;
 
     @OneToMany
     private List<ModelEntity> model;
 
     public MakeEntity() {
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMake() {
@@ -24,4 +37,11 @@ public class MakeEntity {
         this.make = make;
     }
 
+    public List<ModelEntity> getModel() {
+        return model;
+    }
+
+    public void setModel(List<ModelEntity> model) {
+        this.model = model;
+    }
 }

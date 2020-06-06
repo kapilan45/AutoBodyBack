@@ -1,11 +1,11 @@
 package org.csid.autobody.dto;
 
-public class ImageDto {
+public class UploadDto {
 
     private Long id;
     private byte[] path;
 
-    public ImageDto() {
+    public UploadDto() {
     }
 
     public Long getId() {

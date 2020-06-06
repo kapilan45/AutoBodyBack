@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Entity(name = "Image")
 public class ImageEntity {
@@ -33,4 +34,5 @@ public class ImageEntity {
     public void setPath(byte[] path) {
         this.path = path;
     }
+
 }

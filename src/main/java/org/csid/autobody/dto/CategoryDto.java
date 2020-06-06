@@ -1,9 +1,7 @@
 package org.csid.autobody.dto;
 
 public class CategoryDto {
-
     private String category;
-
     public CategoryDto(){
 
     }
