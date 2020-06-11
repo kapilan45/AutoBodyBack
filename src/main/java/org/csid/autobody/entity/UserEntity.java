@@ -19,6 +19,9 @@ public class UserEntity {
     @Column(name = "password", length = 75)
     private String password;
 
+    @Column(name = "stat")
+    private boolean stat;
+
     @Column(name = "mail", length = 150)
     private String mail;
 
@@ -68,5 +71,13 @@ public class UserEntity {
 
     public void setRole(RoleEntity role) {
         this.role = role;
+    }
+
+    public boolean isStat() {
+        return stat;
+    }
+
+    public void setStat(boolean stat) {
+        this.stat = stat;
     }
 }

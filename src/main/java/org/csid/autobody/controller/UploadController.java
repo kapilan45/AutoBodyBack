@@ -1,6 +1,7 @@
 package org.csid.autobody.controller;
 
 import org.csid.autobody.dto.UploadDto;
+import org.csid.autobody.entity.ImageEntity;
 import org.csid.autobody.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,9 @@ public class UploadController {
     @PostMapping("image")
     public UploadDto uplaodImage(@RequestParam("image") MultipartFile file) throws IOException {
         UploadDto image = new UploadDto();
-        image.setId((long) 1);
         image.setPath(file.getBytes());
-        return DtoConverter.map(this.imageService.saveImage(image), UploadDto.class);
+        ImageEntity img = this.imageService.saveImage(image);
+        return DtoConverter.map(img, UploadDto.class);
     }
 
     @GetMapping("image/get/{user}")

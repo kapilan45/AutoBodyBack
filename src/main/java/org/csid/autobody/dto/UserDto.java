@@ -6,6 +6,7 @@ public class UserDto {
     private String password;
     private String mail;
     private String role;
+    private boolean stat;
 
     public String getUsername() {
         return username;
@@ -37,5 +38,13 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isStat() {
+        return stat;
+    }
+
+    public void setStat(boolean stat) {
+        this.stat = stat;
     }
 }

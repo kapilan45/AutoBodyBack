@@ -43,7 +43,7 @@ public class AnnonceDto {
     private String options;
     private String make;
     private String localisation;
-    private List<UploadDto> images;
+    private List<Integer> images;
     private Date publishedDate;
     private int user;
 
@@ -155,12 +155,11 @@ public class AnnonceDto {
         this.model = model;
     }
 
-
-    public List<UploadDto> getImages() {
+    public List<Integer> getImages() {
         return images;
     }
 
-    public void setImages(List<UploadDto> images) {
+    public void setImages(List<Integer> images) {
         this.images = images;
     }
 

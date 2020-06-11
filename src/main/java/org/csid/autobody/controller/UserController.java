@@ -99,8 +99,8 @@ public class UserController {
 
     @PostMapping("register")
     public UserDto createUser(@RequestBody UserDto user){
-        UserEntity userCreated = this.userService.save(user);
-        return DtoConverter.map(userCreated, UserDto.class);
+        user.setStat(false);
+        return this.userService.save(user);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
