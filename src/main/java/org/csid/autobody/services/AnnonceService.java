@@ -32,9 +32,9 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-       // MakeEntity makeEntity = makeRepository.findByName(annonceDto.getMake());
-       // ModelEntity modelEntity = modelRepository.findModelByNameAndMake(annonceDto.getModel(),annonceDto.getMake());
-        //CategoryEntity categoryEntity = categoryRepository.findCategoryByNameAndModel(annonceDto.getCategory(),annonceDto.getModel());
+        MakeEntity makeEntity = makeRepository.findByMake(annonceDto.getMake());
+        ModelEntity modelEntity = modelRepository.findByModel(annonceDto.getModel());
+        CategoryEntity categoryEntity = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(),modelEntity);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = (String) auth.getPrincipal();
@@ -44,13 +44,10 @@ public class AnnonceService {
         if (u == null)
             u = userRepository.getOne(1L);
 
-
-        //AnnonceEntity annonce = new AnnonceEntity();
-
         annonce.setUser(u);
-        annonce.setMake(null);
-      //  annonce.setModel(modelEntity);
-        annonce.setCategory(null);
+        annonce.setMake(makeEntity);
+        annonce.setModel(modelEntity);
+        annonce.setCategory(categoryEntity);
         this.annonceRepository.save(annonce);
     }
 
