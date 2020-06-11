@@ -21,33 +21,31 @@ public class AnnonceService {
     private final UserRepository userRepository;
     private final MakeRepository makeRepository;
     private final ModelRepository modelRepository;
+    private final UserService userService;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, ModelRepository modelRepository) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, ModelRepository modelRepository, UserService userService) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.makeRepository = makeRepository;
         this.modelRepository = modelRepository;
+        this.userService = userService;
     }
 
-    public void saveAnnonce(AnnonceDto annonceDto) {
+    public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
-        MakeEntity makeEntity = makeRepository.findByMake(annonceDto.getMake());
-        ModelEntity modelEntity = modelRepository.findByModel(annonceDto.getModel());
-        CategoryEntity categoryEntity = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(),modelEntity);
+        MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
+        ModelEntity model = modelRepository.findByModel(annonceDto.getModel());
+        CategoryEntity category = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(), model);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String) auth.getPrincipal();
-        UserEntity u = userRepository.findByUsername(username);
+        UserEntity u = userService.getUserByToken(userToken);
 
-        // TO DO ANONYMOUS
-        if (u == null)
-            u = userRepository.getOne(1L);
+        // TODO ANONYMOUS THROW Exception
 
         annonce.setUser(u);
-        annonce.setMake(makeEntity);
-        annonce.setModel(modelEntity);
-        annonce.setCategory(categoryEntity);
+        annonce.setMake(make);
+        annonce.setModel(model);
+        annonce.setCategory(category);
         this.annonceRepository.save(annonce);
     }
 

@@ -22,6 +22,7 @@ import java.util.List;
 public class UserService {
 
     public static final String SECRET = "SecretKeyToGenJWTs";
+
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -43,6 +44,14 @@ public class UserService {
         }
         return user;
     }
+
+    public UserEntity getUserByToken(String userToken) {
+        String username = getUserNameWithToken(userToken);
+
+        return findByUsername(username);
+    }
+
+    
 
     @Transactional
     public void changePassword(String oldPassword, String newPassword){
@@ -113,10 +122,12 @@ public class UserService {
         return this.userRepository.save(userEntity);
     }
 
-    public String getUserNameWithToken(String token){
+    private String getUserNameWithToken(String token){
         return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                 .build()
                 .verify(token)
                 .getSubject();
     }
+
+
 }
