@@ -2,6 +2,7 @@ package org.csid.autobody.services;
 
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.dto.AnnonceFilterDto;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
@@ -69,6 +70,97 @@ public class AnnonceService {
         UserEntity user = DtoConverter.map(userDto, UserEntity.class);
         List<AnnonceEntity> all = annonceRepository.findByUser(user.getId());
         return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
+    public List<AnnonceDto> getAllFiltered(AnnonceFilterDto annonceFilterDto){
+
+        List<AnnonceEntity> allFiltered = null;
+
+        MakeEntity makeEntity = makeRepository.findByMake(annonceFilterDto.getMake());
+        ModelEntity modelEntity = modelRepository.findByModel(annonceFilterDto.getModel());
+        CategoryEntity categoryEntity = categoryRepository.findByCategoryAndModel(annonceFilterDto.getCategory(),modelEntity);
+
+
+
+        if(annonceFilterDto.getMaxPrice() == 0){
+            annonceFilterDto.setMaxPrice(1000000);
+        }
+
+        if(annonceFilterDto.getMaxFiscalHorsePower() == 0){
+            annonceFilterDto.setMaxFiscalHorsePower(1000000);
+        }
+
+        if(annonceFilterDto.getMaxHorsePower() == 0){
+            annonceFilterDto.setMaxHorsePower(1000000);
+        }
+
+        if(annonceFilterDto.getMaxFuelEconomy() == 0){
+            annonceFilterDto.setMaxFuelEconomy(1000000);
+        }
+
+        if(annonceFilterDto.getMinMileage() == null){
+            annonceFilterDto.setMinMileage(0L);
+        }
+
+        if(annonceFilterDto.getMaxMileage() == null){
+            annonceFilterDto.setMaxMileage(1000000L);
+        }
+
+        if(annonceFilterDto.getMaxMileageSinceModification() == 0){
+            annonceFilterDto.setMaxMileageSinceModification(1000000);
+        }
+
+        if(annonceFilterDto.getMaxTorque() == 0){
+            annonceFilterDto.setMaxTorque(1000000);
+        }
+
+        if(annonceFilterDto.getMaxTorqueSinceModification() == 0){
+            annonceFilterDto.setMaxTorque(1000000);
+        }
+
+        if(annonceFilterDto.getMaxYear() == 0){
+            annonceFilterDto.setMaxYear(1000000);
+        }
+
+
+        //Si pas de Marque, Model et Category
+        if(annonceFilterDto.getMake().isEmpty() && annonceFilterDto.getModel().isEmpty() && annonceFilterDto.getCategory().isEmpty()){
+
+            allFiltered = annonceRepository.findFiltered(annonceFilterDto.getMinHorsePower(),annonceFilterDto.getMaxHorsePower(),annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
+                    annonceFilterDto.getMinTorque(),annonceFilterDto.getMaxTorque(),annonceFilterDto.getMinTorqueSinceModification(),annonceFilterDto.getMaxTorqueSinceModification(),
+                    annonceFilterDto.getMinFuelEconomy(),annonceFilterDto.getMaxFuelEconomy(),annonceFilterDto.getMinMileage(),annonceFilterDto.getMaxMileage(),annonceFilterDto.getMinMileageSinceModification(),
+                    annonceFilterDto.getMaxMileageSinceModification(),annonceFilterDto.getMinYear(),annonceFilterDto.getMaxYear(),annonceFilterDto.getMinFiscalHorsePower(),annonceFilterDto.getMaxFiscalHorsePower());
+        }
+        //Si on a une marque mais pas de model et de category
+        else if(annonceFilterDto.getMake().isEmpty() && annonceFilterDto.getModel().isEmpty() && annonceFilterDto.getCategory().isEmpty()){
+
+            allFiltered = annonceRepository.findFilteredWithMake(makeEntity,annonceFilterDto.getMinHorsePower(),annonceFilterDto.getMaxHorsePower(),annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
+                    annonceFilterDto.getMinTorque(),annonceFilterDto.getMaxTorque(),annonceFilterDto.getMinTorqueSinceModification(),annonceFilterDto.getMaxTorqueSinceModification(),
+                    annonceFilterDto.getMinFuelEconomy(),annonceFilterDto.getMaxFuelEconomy(),annonceFilterDto.getMinMileage(),annonceFilterDto.getMaxMileage(),annonceFilterDto.getMinMileageSinceModification(),
+                    annonceFilterDto.getMaxMileageSinceModification(),annonceFilterDto.getMinYear(),annonceFilterDto.getMaxYear(),annonceFilterDto.getMinFiscalHorsePower(),annonceFilterDto.getMaxFiscalHorsePower());
+        }
+        //Si on a une marque et un model mais pas de category
+        else if(!annonceFilterDto.getMake().isEmpty() && !annonceFilterDto.getModel().isEmpty() && annonceFilterDto.getCategory().isEmpty()){
+
+            allFiltered = annonceRepository.findFilteredWithMakeAndModel(makeEntity,modelEntity,annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
+                    annonceFilterDto.getMinTorque(),annonceFilterDto.getMaxTorque(),annonceFilterDto.getMinTorqueSinceModification(),annonceFilterDto.getMaxTorqueSinceModification(),
+                    annonceFilterDto.getMinFuelEconomy(),annonceFilterDto.getMaxFuelEconomy(),annonceFilterDto.getMinMileage(),annonceFilterDto.getMaxMileage(),annonceFilterDto.getMinMileageSinceModification(),
+                    annonceFilterDto.getMaxMileageSinceModification(),annonceFilterDto.getMinYear(),annonceFilterDto.getMaxYear(),annonceFilterDto.getMinFiscalHorsePower(),annonceFilterDto.getMaxFiscalHorsePower(),
+                    annonceFilterDto.getMinHorsePower(),annonceFilterDto.getMaxHorsePower());
+        }
+        //Si on a une marque un model et une category
+        else if(!annonceFilterDto.getMake().isEmpty() && !annonceFilterDto.getModel().isEmpty() && !annonceFilterDto.getCategory().isEmpty()){
+
+            allFiltered = annonceRepository.findFilteredWithMakeAndModelAndCategory(makeEntity,modelEntity,categoryEntity,annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
+                    annonceFilterDto.getMinTorque(),annonceFilterDto.getMaxTorque(),annonceFilterDto.getMinTorqueSinceModification(),annonceFilterDto.getMaxTorqueSinceModification(),
+                    annonceFilterDto.getMinFuelEconomy(),annonceFilterDto.getMaxFuelEconomy(),annonceFilterDto.getMinMileage(),annonceFilterDto.getMaxMileage(),annonceFilterDto.getMinMileageSinceModification(),
+                    annonceFilterDto.getMaxMileageSinceModification(),annonceFilterDto.getMinYear(),annonceFilterDto.getMaxYear(),annonceFilterDto.getMinFiscalHorsePower(),annonceFilterDto.getMaxFiscalHorsePower(),
+                    annonceFilterDto.getMinHorsePower(),annonceFilterDto.getMaxHorsePower());
+        }
+
+        return DtoConverter.mapAsList(allFiltered, AnnonceDto.class);
+
+
     }
 
     /*
