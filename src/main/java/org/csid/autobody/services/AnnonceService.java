@@ -72,6 +72,7 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
+    /*
     public List<AnnonceDto> getAllFiltered(AnnonceFilterDto annonceFilterDto){
 
         List<AnnonceEntity> allFiltered = null;
@@ -142,7 +143,7 @@ public class AnnonceService {
         //Si on a une marque et un model mais pas de category
         else if(!annonceFilterDto.getMake().isEmpty() && !annonceFilterDto.getModel().isEmpty() && annonceFilterDto.getCategory().isEmpty()){
 
-            allFiltered = annonceRepository.findFilteredWithMakeAndModel(makeEntity,modelEntity,annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
+           allFiltered = annonceRepository.findFilteredWithMakeAndModel(makeEntity,modelEntity,annonceFilterDto.getMinPrice(),annonceFilterDto.getMaxPrice(),
                     annonceFilterDto.getMinTorque(),annonceFilterDto.getMaxTorque(),annonceFilterDto.getMinTorqueSinceModification(),annonceFilterDto.getMaxTorqueSinceModification(),
                     annonceFilterDto.getMinFuelEconomy(),annonceFilterDto.getMaxFuelEconomy(),annonceFilterDto.getMinMileage(),annonceFilterDto.getMaxMileage(),annonceFilterDto.getMinMileageSinceModification(),
                     annonceFilterDto.getMaxMileageSinceModification(),annonceFilterDto.getMinYear(),annonceFilterDto.getMaxYear(),annonceFilterDto.getMinFiscalHorsePower(),annonceFilterDto.getMaxFiscalHorsePower(),
@@ -163,6 +164,8 @@ public class AnnonceService {
 
     }
 
+
+     */
     /*
     public List<AnnonceDto> getAllByFilter(String filter){
         List<AnnonceEntity> all = annonceRepository.findAll();
