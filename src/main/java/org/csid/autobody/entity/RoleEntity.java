@@ -3,13 +3,12 @@ package org.csid.autobody.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role", schema = "db1")
+@Table(name = "t_role")
 public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "serial")
-    private Integer id;
+    private Long id;
 
     @Column(name = "role", length = 65)
     private String role;

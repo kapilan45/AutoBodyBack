@@ -17,6 +17,8 @@ public interface AnnonceRepository extends JpaRepository<AnnonceEntity, Long> {
 
     List<AnnonceEntity> findAllByOrderByPriceDesc();
 
+    List<AnnonceEntity> findAllByUser(UserEntity user);
+
     List<AnnonceEntity> findAllByPriceBetween(double min, double max);
 
     @Query("select u from AnnonceEntity u where u.user = ?1")

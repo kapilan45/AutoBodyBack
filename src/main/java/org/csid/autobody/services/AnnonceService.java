@@ -65,10 +65,14 @@ public class AnnonceService {
     }
 
 
-    public List<AnnonceDto> getAllByUser(UserDto userDto) {
-        UserEntity user = DtoConverter.map(userDto, UserEntity.class);
-        List<AnnonceEntity> all = annonceRepository.findByUser(user.getId());
+    public List<AnnonceDto> getAllByUser(String userToken) {
+        UserEntity user = userService.getUserByToken(userToken);
+        List<AnnonceEntity> all = annonceRepository.findAllByUser(user);
         return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
+    public void getAnnonceFiltred(String id, String value) {
+        System.out.println("get annonce by filtre TODO");
     }
 
     /*

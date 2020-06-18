@@ -5,6 +5,7 @@ import org.csid.autobody.dto.MakeDto;
 import org.csid.autobody.dto.ModelDto;
 import org.csid.autobody.entity.MakeEntity;
 import org.csid.autobody.entity.ModelEntity;
+import org.csid.autobody.services.AnnonceService;
 import org.csid.autobody.services.CategoryService;
 import org.csid.autobody.services.MakeService;
 import org.csid.autobody.services.ModelService;
@@ -21,7 +22,7 @@ public class FilterController {
     private ModelService modelService;
     private CategoryService categoryService;
 
-    public FilterController(MakeService makeService, ModelService modelService, CategoryService categoryService) {
+    public FilterController(MakeService makeService, ModelService modelService, CategoryService categoryService, AnnonceService annonceService) {
         this.makeService = makeService;
         this.modelService = modelService;
         this.categoryService = categoryService;
@@ -45,4 +46,5 @@ public class FilterController {
         ModelEntity modelEntity = this.modelService.getOneModel(model);
         return categoryService.getAllCategoryByModel(modelEntity);
     }
+
 }

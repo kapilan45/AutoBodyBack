@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Annonces")
 public class AnnonceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "maxSpeed")

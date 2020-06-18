@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     public static final String SECRET = "SecretKeyToGenJWTs";
@@ -34,7 +35,6 @@ public class UserService {
         this.roleService = roleService;
     }
 
-    @Transactional(readOnly = true)
     public UserEntity findByUsername(String username){
         UserEntity user = null;
         try{
@@ -53,7 +53,6 @@ public class UserService {
 
     
 
-    @Transactional
     public void changePassword(String oldPassword, String newPassword){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -70,7 +69,6 @@ public class UserService {
 
 
 
-    @Transactional(readOnly = true)
     public List<String> findAllUsernames(){
         List<String> usernamesList= new ArrayList<>();
 
@@ -83,7 +81,6 @@ public class UserService {
         return usernamesList;
     }
 
-    @Transactional
     public void deleteUser(String username){
 
         UserEntity deletingUser = findByUsername(username);
@@ -109,17 +106,27 @@ public class UserService {
         return DtoConverter.map(u,UserDto.class);
     }
 
-    public UserEntity save(UserDto userDto) {
+    public UserDto save(UserDto userDto) {
 
         UserEntity userEntity = DtoConverter.map(userDto, UserEntity.class);
 
         userEntity.setPassword(getPasswordEncoder().encode(userEntity.getPassword()));
 
         RoleEntity role = roleService.findByRoleName("ROLE_USER");
-        if(userEntity.getRole() == null){
-            userEntity.setRole(role);
+        if (role == null) {
+        	// TODO create missing from empty db ?!!
+        	role = new RoleEntity();
+        	role.setRole("ROLE_USER");
+        	role = roleService.getRoleRepository().save(role);
         }
-        return this.userRepository.save(userEntity);
+        
+        if(userEntity.getRole() == null) {
+            userEntity.setRole(role); // TODO change to use list ...
+        }
+        userEntity = this.userRepository.save(userEntity);
+        
+        UserDto res = DtoConverter.map(userEntity, UserDto.class);
+        return res;
     }
 
     private String getUserNameWithToken(String token){

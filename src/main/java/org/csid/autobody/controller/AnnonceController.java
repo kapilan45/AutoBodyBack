@@ -32,14 +32,20 @@ public class AnnonceController {
     }
 
 
-    @GetMapping("/:user")
-    public List<AnnonceDto> getAllByUser() {
-        return annonceService.getAllByUser(userService.getCurrentUser());
+    @GetMapping("/user")
+    public List<AnnonceDto> getAllByUser(@RequestHeader("Authorization") String authorization) {
+        return annonceService.getAllByUser(authorization);
     }
 
     @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
         this.annonceService.saveAnnonce(annonceDto, authorization);
     }
+
+    @PostMapping("/filtre")
+    public void getAnnonceFiltred(@RequestParam("id") String id, @RequestParam("value") String value ){
+        this.annonceService.getAnnonceFiltred(id, value);
+    }
+
 
 }

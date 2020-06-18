@@ -3,14 +3,13 @@ package org.csid.autobody.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user", schema = "db1")
+@Table(name = "t_user")
 public class UserEntity {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",columnDefinition = "serial")
+    @GeneratedValue
     private Long id;
 
     @Column(name = "username", length = 75)
@@ -25,7 +24,7 @@ public class UserEntity {
     @Column(name = "mail", length = 150)
     private String mail;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 
