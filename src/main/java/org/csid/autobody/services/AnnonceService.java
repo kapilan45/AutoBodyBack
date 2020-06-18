@@ -2,7 +2,6 @@ package org.csid.autobody.services;
 
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
-import org.csid.autobody.dto.UploadDto;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
@@ -36,7 +35,6 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
 
-        List<UploadDto> imag = annonceDto.getImages();
         List<ImageEntity> images = imageService.getImages(annonceDto.getImages());
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
@@ -69,9 +67,8 @@ public class AnnonceService {
 
     public List<AnnonceDto> getAllByUser(UserDto userDto) {
         UserEntity user = DtoConverter.map(userDto, UserEntity.class);
-        //List<AnnonceEntity> all = annonceRepository.findByUser();
-        //return DtoConverter.mapAsList(all, AnnonceDto.class);
-        return null;
+        List<AnnonceEntity> all = annonceRepository.findByUser(user.getId());
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
     /*
