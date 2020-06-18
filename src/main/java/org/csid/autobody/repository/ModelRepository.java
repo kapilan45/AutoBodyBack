@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ModelRepository extends JpaRepository<ModelEntity, String> {
+public interface ModelRepository extends JpaRepository<ModelEntity, Long> {
 
     List<ModelEntity> findAllByMake(MakeEntity make);
 

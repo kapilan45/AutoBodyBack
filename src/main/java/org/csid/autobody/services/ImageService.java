@@ -33,14 +33,19 @@ public class ImageService {
         return DtoConverter.mapAsList(images, UploadDto.class);
     }
 
-    public List<ImageEntity> getImages(List<Integer> images) {
+    public List<ImageEntity> getImages(List<UploadDto> images) {
 
+        System.out.println(images.size());
         List<ImageEntity> imageEntities = new ArrayList<>();
-        for (int image : images) {
+        for (UploadDto image : images){
+            ImageEntity img = imageRepository.getOne((long) image.getId());
+            imageEntities.add(img);
+        }
+      /*  for (int image : images) {
             //ImageEntity im = imageRepository.getOne((long) image);
             ImageEntity im = imageRepository.getOne((long) image);
             imageEntities.add(im);
-        }
+        } */
 
         return imageEntities;
     }

@@ -11,28 +11,21 @@ public class RoleEntity {
     @Column(name = "id", columnDefinition = "serial")
     private Integer id;
 
-    @Column(name = "role_name", length = 65)
-    private String roleName;
+    @Column(name = "role", length = 65)
+    private String role;
 
-    public RoleEntity(){
+    public RoleEntity() { }
 
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getRole() {
+        return role;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public void setRole(String role) {
+        this.role = role;
     }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
 
 }

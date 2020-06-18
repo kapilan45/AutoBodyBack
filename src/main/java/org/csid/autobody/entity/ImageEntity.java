@@ -13,6 +13,8 @@ public class ImageEntity {
     @Column(name = "path", length = 1000)
     private byte[] path;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private AnnonceEntity annonce;
 
     public ImageEntity() {
     }
@@ -33,4 +35,11 @@ public class ImageEntity {
         this.path = path;
     }
 
+    public AnnonceEntity getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(AnnonceEntity annonce) {
+        this.annonce = annonce;
+    }
 }

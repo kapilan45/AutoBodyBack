@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<CategoryEntity, String> {
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
+
     List<CategoryEntity> findAllByModel(ModelEntity model);
 
     CategoryEntity findByCategoryAndModel(String category, ModelEntity model);

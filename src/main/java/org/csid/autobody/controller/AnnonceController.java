@@ -38,9 +38,8 @@ public class AnnonceController {
     }
 
     @PostMapping("/save")
-    public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader(name = "userToken") String userToken){
-        this.annonceService.saveAnnonce(annonceDto, userToken);
-
+    public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
+        this.annonceService.saveAnnonce(annonceDto, authorization);
     }
 
 }

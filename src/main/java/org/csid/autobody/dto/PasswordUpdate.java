@@ -1,4 +1,4 @@
-package org.csid.autobody.security;
+package org.csid.autobody.dto;
 
 public class PasswordUpdate {
 

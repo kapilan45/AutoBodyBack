@@ -1,5 +1,7 @@
 package org.csid.autobody.entity;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;

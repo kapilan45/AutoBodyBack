@@ -11,11 +11,11 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public RoleEntity findByRoleName(String roleName){
+    public RoleEntity findByRoleName(String role){
         RoleEntity roleEntity = null;
 
         try{
-            roleEntity = roleRepository.findByRoleName(roleName);
+            roleEntity = roleRepository.findByRole(role);
         } catch (Exception e){
             throw e;
         }
