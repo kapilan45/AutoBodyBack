@@ -8,6 +8,9 @@ public class AnnonceDto {
     private Long id;
     private int maxSpeed;
     private boolean reinforcedClutch;
+    private boolean firstHand;
+    private boolean technicalControl;
+
     private int horsePower;
     private int horsePowerSinceTheLatestModification;
     private int fiscalHorsePower;
@@ -36,7 +39,6 @@ public class AnnonceDto {
     private String outSideColor;
     private String inSideColor;
     private String numberOfOwner;
-    private String firstHand;
     private Date year;
     private String model;
     private String category;
@@ -211,14 +213,6 @@ public class AnnonceDto {
         this.numberOfOwner = numberOfOwner;
     }
 
-    public String getFirstHand() {
-        return firstHand;
-    }
-
-    public void setFirstHand(String firstHand) {
-        this.firstHand = firstHand;
-    }
-
     public Date getYear() {
         return year;
     }
@@ -381,5 +375,21 @@ public class AnnonceDto {
 
     public void setUser(int user) {
         this.user = user;
+    }
+
+    public boolean isFirstHand() {
+        return firstHand;
+    }
+
+    public void setFirstHand(boolean firstHand) {
+        this.firstHand = firstHand;
+    }
+
+    public boolean isTechnicalControl() {
+        return technicalControl;
+    }
+
+    public void setTechnicalControl(boolean technicalControl) {
+        this.technicalControl = technicalControl;
     }
 }

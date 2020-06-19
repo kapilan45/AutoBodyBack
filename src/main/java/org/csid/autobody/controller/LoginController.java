@@ -41,6 +41,7 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public ResponseEntity<UserDto> login(@RequestBody UserDto req) {
+
 		String username = req.getUsername(), password = req.getPassword();
 		Authentication auth = new UsernamePasswordAuthenticationToken(username, password, null);
 		UserDto res = new UserDto();
@@ -48,23 +49,24 @@ public class LoginController {
 			authenticationManager.authenticate(auth);
 		} catch(AuthenticationException ex) {
 			// failed to authenticate!
-	        return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		if (!auth.isAuthenticated()) {
 			// failed to authenticate!
-	        return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		SecurityContextHolder.getContext().setAuthentication(auth);
-        HttpHeaders httpHeaders = new HttpHeaders();
+
+		HttpHeaders httpHeaders = new HttpHeaders();
         // use JWT token ...
 		httpHeaders.add(HEADER_STRING, GenerateToken(username));
 
         UserEntity user = userService.findByUsername(username);
         res.setRole(user.getRole().getRole());
 		res.setUsername(user.getUsername());
-        
+
         return new ResponseEntity<>(res, httpHeaders, HttpStatus.OK);
 	}
 

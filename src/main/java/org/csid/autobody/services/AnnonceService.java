@@ -5,13 +5,8 @@ import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
-import org.csid.autobody.specifications.AnnonceSpecifications;
-import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
-import org.csid.autobody.specifications.SearchCriteria;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,41 +71,9 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-
-    public List<AnnonceEntity> getAnnonceFiltered(Specification annonceSpecification) {
-
-        List<AnnonceEntity> all = annonceRepository.findAll(annonceSpecification);
-        return all;
-
+    public void getAnnonceFiltred(String id, String value) {
+        System.out.println("get annonce by filtre TODO");
     }
-
-    public AnnoncesSpecificationsBuilder mapAnnonceObjects(AnnoncesSpecificationsBuilder builder){
-
-        boolean make = false;
-        boolean model = false;
-
-        ModelEntity modelEntity = new ModelEntity();
-
-        for (SearchCriteria searchCriteria : builder.getParams()) {
-
-            if(searchCriteria.getKey().equalsIgnoreCase("make")){
-                make = true;
-                System.out.println(searchCriteria.getValue().toString());
-                MakeEntity makeEntity = makeRepository.findByMake(searchCriteria.getValue().toString());
-                searchCriteria.setValue(makeEntity);
-
-            }else if(searchCriteria.getKey().equalsIgnoreCase("model") && make){
-                model = true;
-                modelEntity = modelRepository.findByModel(searchCriteria.getValue().toString());
-                searchCriteria.setValue(modelEntity);
-            }else if(searchCriteria.getKey().equalsIgnoreCase("category") && model){
-                CategoryEntity categoryEntity = categoryRepository.findByCategoryAndModel(searchCriteria.getValue().toString(),modelEntity);
-                searchCriteria.setValue(categoryEntity);
-            }
-        }
-        return builder;
-    }
-
 
     /*
     public List<AnnonceDto> getAllByFilter(String filter){
