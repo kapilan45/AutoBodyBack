@@ -5,6 +5,7 @@ import org.csid.autobody.dto.PasswordUpdate;
 import org.csid.autobody.services.CustomUserDetailsService;
 import org.csid.autobody.services.RoleService;
 import org.csid.autobody.services.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +62,7 @@ public class SecurityController {
     @PostMapping("register")
     public UserDto createUser(@RequestBody UserDto user){
         user.setStat(false);
-
-        UserDto u = DtoConverter.map(this.userService.save(user),UserDto.class);
-
-        return u;
+        return DtoConverter.map(this.userService.save(user),UserDto.class);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

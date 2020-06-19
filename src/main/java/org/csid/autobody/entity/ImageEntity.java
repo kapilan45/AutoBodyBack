@@ -1,5 +1,7 @@
 package org.csid.autobody.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class ImageEntity {
     @Column(name = "path", length = 1000)
     private byte[] path;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private AnnonceEntity annonce;
 

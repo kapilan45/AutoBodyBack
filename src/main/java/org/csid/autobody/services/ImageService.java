@@ -1,5 +1,7 @@
 package org.csid.autobody.services;
 
+import java.util.List;
+
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.UploadDto;
 import org.csid.autobody.entity.ImageEntity;
