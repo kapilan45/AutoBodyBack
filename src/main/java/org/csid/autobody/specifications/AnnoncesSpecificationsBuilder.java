@@ -16,11 +16,6 @@ import java.util.stream.Collectors;
 
 public class AnnoncesSpecificationsBuilder {
 
-    @Autowired
-    private MakeRepository makeRepository;
-    private ModelRepository modelRepository;
-    private CategoryRepository categoryRepository;
-
     private final List<SearchCriteria> params;
 
     public AnnoncesSpecificationsBuilder() {
