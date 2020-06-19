@@ -51,6 +51,8 @@ public class AnnonceController {
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, value = "/filtre")
+    @ResponseBody
     public List<AnnonceDto> getAnnonceFiltred(@RequestParam(value = "search") String search ) {
         AnnoncesSpecificationsBuilder builder = new AnnoncesSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
