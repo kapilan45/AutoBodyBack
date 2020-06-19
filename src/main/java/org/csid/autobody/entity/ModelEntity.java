@@ -1,5 +1,7 @@
 package org.csid.autobody.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,9 +16,11 @@ public class ModelEntity {
     @Column(name = "model")
     private String model;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY)
     private List<CategoryEntity> category;
 

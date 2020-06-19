@@ -1,5 +1,7 @@
 package org.csid.autobody.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,6 +26,7 @@ public class UserEntity {
     @Column(name = "mail", length = 150)
     private String mail;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "role_id")
     private RoleEntity role;

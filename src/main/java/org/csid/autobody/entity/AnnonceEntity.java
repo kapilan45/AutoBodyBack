@@ -1,5 +1,6 @@
 package org.csid.autobody.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
@@ -128,18 +129,23 @@ public class AnnonceEntity {
     @Column(name = "localisation")
     private String localisation;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY)
     private List<ImageEntity> images;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private ModelEntity model;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private CategoryEntity category;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private MakeEntity make;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
@@ -464,6 +470,7 @@ public class AnnonceEntity {
     public void setTorque(int torque) {
         this.torque = torque;
     }
+
 
 
 }
