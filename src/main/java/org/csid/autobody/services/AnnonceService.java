@@ -1,18 +1,14 @@
 package org.csid.autobody.services;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
-import org.csid.autobody.specifications.AnnonceSpecifications;
 import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
 import org.csid.autobody.specifications.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.ui.Model;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -108,8 +104,6 @@ public class AnnonceService {
 
     public AnnoncesSpecificationsBuilder mapAnnonceObjects(AnnoncesSpecificationsBuilder builder){
 
-        boolean model = false;
-
         ModelEntity modelEntity = new ModelEntity();
 
         for (SearchCriteria searchCriteria : builder.getParams()) {
@@ -118,7 +112,6 @@ public class AnnonceService {
                 MakeEntity makeEntity = makeRepository.findByMake(searchCriteria.getValue().toString());
                 searchCriteria.setValue(makeEntity);
             }else if(searchCriteria.getKey().equalsIgnoreCase("model")){
-                model = true;
                 modelEntity = modelRepository.findByModel(searchCriteria.getValue().toString());
                 searchCriteria.setValue(modelEntity);
             }else if(searchCriteria.getKey().equalsIgnoreCase("category")){
