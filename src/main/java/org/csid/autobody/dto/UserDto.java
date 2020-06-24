@@ -3,7 +3,7 @@ package org.csid.autobody.dto;
 public class UserDto {
 
     private String username;
-    private String password;
+    private String password = null;
     private String mail;
     private String role;
     private boolean stat;

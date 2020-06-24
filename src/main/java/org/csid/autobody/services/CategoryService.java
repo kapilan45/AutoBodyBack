@@ -27,9 +27,14 @@ public class CategoryService {
         return DtoConverter.map(this.categoryRepository.save(categoryEntity), CategoryDto.class);
     }
 
-    public List<CategoryDto> getAllCategoryByModel(ModelEntity model) {
+    public List<CategoryDto> getAllCategory() {
+        List<CategoryEntity> categories = this.categoryRepository.findAll();
+        return DtoConverter.mapAsList(categories, CategoryDto.class);
+    }
+
+    /*public List<CategoryDto> getAllCategoryByModel(ModelEntity model) {
         List<CategoryEntity> all = categoryRepository.findAllByModel(model);
         return DtoConverter.mapAsList(all, CategoryDto.class);
-    }
+    }*/
 
 }

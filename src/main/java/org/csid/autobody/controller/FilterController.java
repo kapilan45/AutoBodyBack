@@ -42,9 +42,9 @@ public class FilterController {
     }
 
     @GetMapping("/category")
-    public List<CategoryDto> getCategoriesWithModel(@RequestParam(name = "model") String model){
-        ModelEntity modelEntity = this.modelService.getOneModel(model);
-        return categoryService.getAllCategoryByModel(modelEntity);
+    public List<CategoryDto> getCategoriesWithModel(){
+        return this.categoryService.getAllCategory();
+       // return categoryService.getAllCategoryByModel(modelEntity); TODO
     }
 
 }

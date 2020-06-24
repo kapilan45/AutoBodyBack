@@ -1,8 +1,8 @@
 package org.csid.autobody.services;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.AnnonceDto;
-import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.specifications.AnnonceSpecifications;
 import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
 import org.csid.autobody.specifications.SearchCriteria;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -44,7 +43,8 @@ public class AnnonceService {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
         ModelEntity model = modelRepository.findByModel(annonceDto.getModel());
-        CategoryEntity category = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(), model);
+        //CategoryEntity category = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(), model);
+        CategoryEntity category = categoryRepository.findByCategory(annonceDto.getCategory());
 
         UserEntity u = userService.getUserByToken(userToken);
         //if(u.isStat()) Throw new Exception();
@@ -59,6 +59,12 @@ public class AnnonceService {
         this.annonceRepository.save(annonce);
     }
 
+    public List<AnnonceDto> deleteAnnonce(AnnonceDto annonceDto, String authorization) {
+        AnnonceEntity annonce = annonceRepository.getOne(annonceDto.getId());
+        annonceRepository.delete(annonce);
+        return getAllByUser(authorization);
+    }
+
     public List<AnnonceDto> getAll() {
         List<AnnonceEntity> all = annonceRepository.findAll();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
@@ -69,12 +75,28 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
+    public List<AnnonceDto> getAllDecroissant(){
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateDesc();
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
+    public List<AnnonceDto> getByLessPrice(){
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPriceDesc();
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
+    public List<AnnonceDto> getByHighPrice(){
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPriceAsc();
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
 
     public List<AnnonceDto> getAllByUser(String userToken) {
         UserEntity user = userService.getUserByToken(userToken);
         List<AnnonceEntity> all = annonceRepository.findAllByUser(user);
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
+
+
 
     public List<AnnonceEntity> getAnnonceFiltered(Specification annonceSpecification) {
 
@@ -106,6 +128,7 @@ public class AnnonceService {
         }
         return builder;
     }
+
 
     /*
     public List<AnnonceDto> getAllByFilter(String filter){

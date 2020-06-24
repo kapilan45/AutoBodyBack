@@ -1,10 +1,13 @@
 package org.csid.autobody.controller;
 
+import ma.glasnost.orika.Mapper;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.csid.autobody.dto.AnnonceDto;
+import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.AnnonceEntity;
+import org.csid.autobody.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +23,6 @@ public class DtoConverter {
                 .field("category.category","category")
                 .field("model.model","model")
                 .field("make.make","make")
-                .field("user.id","user")
                 .byDefault()
                 .register();
 

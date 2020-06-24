@@ -47,7 +47,7 @@ public class AnnonceDto {
     private String localisation;
     private List<UploadDto> images;
     private Date publishedDate;
-    private int user;
+    private UserDto user;
 
     public AnnonceDto(){}
 
@@ -369,11 +369,11 @@ public class AnnonceDto {
         this.announceStatus = announceStatus;
     }
 
-    public int getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(int user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
@@ -384,6 +384,7 @@ public class AnnonceDto {
     public void setFirstHand(boolean firstHand) {
         this.firstHand = firstHand;
     }
+
 
     public boolean isTechnicalControl() {
         return technicalControl;

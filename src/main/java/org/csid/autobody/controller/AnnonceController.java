@@ -9,11 +9,9 @@ import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
 import org.csid.autobody.specifications.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;	import java.util.List;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -50,21 +48,36 @@ public class AnnonceController {
         this.annonceService.saveAnnonce(annonceDto, authorization);
     }
 
+    @GetMapping("/basicfilter")
+    public List<AnnonceDto> basicFilter(@RequestParam("basicFilter") String filter){
+        System.out.println(filter);
+        List<AnnonceDto> all;
+        if(filter.equals("croissant")){
+            all = annonceService.getByHighPrice();
+        }else if (filter.equals("decroissant")){
+            all = annonceService.getByLessPrice();
+        }else if (filter.equals("anciennes")) {
+            all = annonceService.getAllRecent();
+        }else {
+            // récentes
+            all = annonceService.getAllDecroissant();
+        }
+        return all;
+    }
+
+    @PutMapping("/delete")
+    public List<AnnonceDto> deleteAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
+        return this.annonceService.deleteAnnonce(annonceDto, authorization);
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/filtre")
     @ResponseBody
     public List<AnnonceDto> getAnnonceFiltred(@RequestParam(value = "search") String search ) {
-        System.out.println(search);
         AnnoncesSpecificationsBuilder builder = new AnnoncesSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(search + ",");
         while (matcher.find()) {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-
-
-        for(SearchCriteria searchCriteria : builder.getParams()){
-            System.out.println(searchCriteria.getKey() + " : " + searchCriteria.getValue().toString());
         }
 
         builder = this.annonceService.mapAnnonceObjects(builder);

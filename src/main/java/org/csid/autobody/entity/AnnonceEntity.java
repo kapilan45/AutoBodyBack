@@ -1,7 +1,6 @@
 package org.csid.autobody.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -129,6 +128,7 @@ public class AnnonceEntity {
     @Column(name = "localisation")
     private String localisation;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY)
     private List<ImageEntity> images;
 
