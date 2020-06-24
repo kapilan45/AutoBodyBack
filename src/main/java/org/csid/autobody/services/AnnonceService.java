@@ -86,7 +86,6 @@ public class AnnonceService {
 
     public AnnoncesSpecificationsBuilder mapAnnonceObjects(AnnoncesSpecificationsBuilder builder){
 
-        boolean make = false;
         boolean model = false;
 
         ModelEntity modelEntity = new ModelEntity();
@@ -94,17 +93,14 @@ public class AnnonceService {
         for (SearchCriteria searchCriteria : builder.getParams()) {
 
             if(searchCriteria.getKey().equalsIgnoreCase("make")){
-                make = true;
-                System.out.println(searchCriteria.getValue().toString());
                 MakeEntity makeEntity = makeRepository.findByMake(searchCriteria.getValue().toString());
                 searchCriteria.setValue(makeEntity);
-
-            }else if(searchCriteria.getKey().equalsIgnoreCase("model") && make){
+            }else if(searchCriteria.getKey().equalsIgnoreCase("model")){
                 model = true;
                 modelEntity = modelRepository.findByModel(searchCriteria.getValue().toString());
                 searchCriteria.setValue(modelEntity);
-            }else if(searchCriteria.getKey().equalsIgnoreCase("category") && model){
-                CategoryEntity categoryEntity = categoryRepository.findByCategoryAndModel(searchCriteria.getValue().toString(),modelEntity);
+            }else if(searchCriteria.getKey().equalsIgnoreCase("category")){
+                CategoryEntity categoryEntity = categoryRepository.findByCategory(searchCriteria.getValue().toString());
                 searchCriteria.setValue(categoryEntity);
             }
         }

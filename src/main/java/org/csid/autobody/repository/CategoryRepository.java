@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
+    CategoryEntity findByCategory(String category);
+
     List<CategoryEntity> findAllByModel(ModelEntity model);
 
     CategoryEntity findByCategoryAndModel(String category, ModelEntity model);
