@@ -9,6 +9,9 @@ import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -52,6 +55,8 @@ public class AnnonceService {
         annonce.setModel(model);
         annonce.setCategory(category);
         annonce.setImages(images);
+
+        annonce.setPublishedDate(new Date());
         this.annonceRepository.save(annonce);
     }
 

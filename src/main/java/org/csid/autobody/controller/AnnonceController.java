@@ -57,10 +57,10 @@ public class AnnonceController {
         }else if (filter.equals("decroissant")){
             all = annonceService.getByLessPrice();
         }else if (filter.equals("anciennes")) {
-            all = annonceService.getAllRecent();
+            all = annonceService.getAllDecroissant();
         }else {
             // récentes
-            all = annonceService.getAllDecroissant();
+            all = annonceService.getAllRecent();
         }
         return all;
     }
