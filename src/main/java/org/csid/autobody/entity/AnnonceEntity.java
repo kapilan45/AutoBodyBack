@@ -47,6 +47,7 @@ public class AnnonceEntity {
     @Column(name = "stage")
     private int stage;
 
+    @Lob
     @Column(name = "options")
     private String options;
 
