@@ -76,6 +76,16 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
+    public List<AnnonceDto> getAllByPublishedDateAsc(){
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateAsc();
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
+    public List<AnnonceDto> getAllByPublishedDateDesc(){
+        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateDesc();
+        return DtoConverter.mapAsList(all, AnnonceDto.class);
+    }
+
     public List<AnnonceDto> getAllDecroissant(){
         List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateDesc();
         return DtoConverter.mapAsList(all, AnnonceDto.class);

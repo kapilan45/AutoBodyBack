@@ -43,6 +43,16 @@ public class AnnonceController {
         return annonceService.getAllByUser(authorization);
     }
 
+    @GetMapping("/publishedAsc")
+    public List<AnnonceDto> getAllByPublishedDateAsc(){
+        return annonceService.getAllByPublishedDateAsc();
+    }
+
+    @GetMapping("/publishedDesc")
+    public List<AnnonceDto> getAllByPublishedDateDesc(){
+        return annonceService.getAllByPublishedDateDesc();
+    }
+
     @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
         this.annonceService.saveAnnonce(annonceDto, authorization);
