@@ -35,16 +35,13 @@ public class FilterController {
 
     @GetMapping("/models")
     public List<ModelDto> getModelWithMake(@RequestParam(name = "make") String make){
-        System.out.println(make);
         MakeEntity makeEntity = this.makeService.getByName(make);
-        System.out.println(makeEntity.getMake());
         return modelService.getModelsWithMake(makeEntity);
     }
 
     @GetMapping("/category")
     public List<CategoryDto> getCategoriesWithModel(){
         return this.categoryService.getAllCategory();
-       // return categoryService.getAllCategoryByModel(modelEntity); TODO
     }
 
 }

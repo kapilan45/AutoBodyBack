@@ -9,7 +9,6 @@ public class AnnonceDto {
     private int maxSpeed;
     private boolean reinforcedClutch;
     private boolean firstHand;
-    private boolean technicalControl;
 
     private int horsePower;
     private int horsePowerSinceTheLatestModification;
@@ -385,12 +384,4 @@ public class AnnonceDto {
         this.firstHand = firstHand;
     }
 
-
-    public boolean isTechnicalControl() {
-        return technicalControl;
-    }
-
-    public void setTechnicalControl(boolean technicalControl) {
-        this.technicalControl = technicalControl;
-    }
 }

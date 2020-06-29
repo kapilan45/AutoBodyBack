@@ -2,7 +2,6 @@ package org.csid.autobody.controller;
 
 import org.csid.autobody.dto.*;
 import org.csid.autobody.services.*;
-import org.csid.autobody.services.MakeService;
 import org.springframework.web.bind.annotation.*;
 import org.csid.autobody.entity.AnnonceEntity;
 import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
@@ -13,24 +12,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/annonce")
 public class AnnonceController {
 
     private final AnnonceService annonceService;
-    private final MakeService makeService;
-    private final ModelService modelService;
-    private final CategoryService categoryService;
-    private final UserService userService;
 
-    public AnnonceController(AnnonceService annonceService, MakeService makeService, ModelService modelService, CategoryService categoryService, UserService userService) {
+    public AnnonceController(AnnonceService annonceService) {
         this.annonceService = annonceService;
-        this.makeService = makeService;
-        this.modelService = modelService;
-        this.categoryService = categoryService;
-        this.userService = userService;
     }
+
 
     @GetMapping
     public List<AnnonceDto> getAllRecent(){
@@ -43,16 +34,6 @@ public class AnnonceController {
         return annonceService.getAllByUser(authorization);
     }
 
-    @GetMapping("/publishedAsc")
-    public List<AnnonceDto> getAllByPublishedDateAsc(){
-        return annonceService.getAllByPublishedDateAsc();
-    }
-
-    @GetMapping("/publishedDesc")
-    public List<AnnonceDto> getAllByPublishedDateDesc(){
-        return annonceService.getAllByPublishedDateDesc();
-    }
-
     @PostMapping("/save")
     public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
         this.annonceService.saveAnnonce(annonceDto, authorization);
@@ -60,19 +41,7 @@ public class AnnonceController {
 
     @GetMapping("/basicfilter")
     public List<AnnonceDto> basicFilter(@RequestParam("basicFilter") String filter){
-        System.out.println(filter);
-        List<AnnonceDto> all;
-        if(filter.equals("croissant")){
-            all = annonceService.getByHighPrice();
-        }else if (filter.equals("decroissant")){
-            all = annonceService.getByLessPrice();
-        }else if (filter.equals("anciennes")) {
-            all = annonceService.getAllDecroissant();
-        }else {
-            // récentes
-            all = annonceService.getAllRecent();
-        }
-        return all;
+        return this.annonceService.getBasicFiltredAnnonce(filter);
     }
 
     @PutMapping("/delete")

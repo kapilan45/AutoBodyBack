@@ -7,6 +7,8 @@ import org.csid.autobody.specifications.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,13 +44,9 @@ public class AnnonceService {
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
         ModelEntity model = modelRepository.findByModel(annonceDto.getModel());
-        //CategoryEntity category = categoryRepository.findByCategoryAndModel(annonceDto.getCategory(), model);
         CategoryEntity category = categoryRepository.findByCategory(annonceDto.getCategory());
 
         UserEntity u = userService.getUserByToken(userToken);
-        //if(u.isStat()) Throw new Exception();
-
-        // TODO ANONYMOUS THROW Exception
 
         annonce.setUser(u);
         annonce.setMake(make);
@@ -76,16 +74,6 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    public List<AnnonceDto> getAllByPublishedDateAsc(){
-        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateAsc();
-        return DtoConverter.mapAsList(all, AnnonceDto.class);
-    }
-
-    public List<AnnonceDto> getAllByPublishedDateDesc(){
-        List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateDesc();
-        return DtoConverter.mapAsList(all, AnnonceDto.class);
-    }
-
     public List<AnnonceDto> getAllDecroissant(){
         List<AnnonceEntity> all = annonceRepository.findAllByOrderByPublishedDateDesc();
         return DtoConverter.mapAsList(all, AnnonceDto.class);
@@ -110,10 +98,7 @@ public class AnnonceService {
 
 
     public List<AnnonceEntity> getAnnonceFiltered(Specification annonceSpecification) {
-
-        List<AnnonceEntity> all = annonceRepository.findAll(annonceSpecification);
-        return all;
-
+        return annonceRepository.findAll(annonceSpecification);
     }
 
 
@@ -137,12 +122,22 @@ public class AnnonceService {
         return builder;
     }
 
+    public List<AnnonceDto> getBasicFiltredAnnonce(String filter) {
 
-    /*
-    public List<AnnonceDto> getAllByFilter(String filter){
-        List<AnnonceEntity> all = annonceRepository.findAll();
-        return DtoConverter.mapAsList(all, AnnonceDto.class);
-    } */
+        List<AnnonceDto> all;
+        if(filter.equals("croissant")){
+            all = getByHighPrice();
+        }else if (filter.equals("decroissant")){
+            all = getByLessPrice();
+        }else if (filter.equals("anciennes")) {
+            all = getAllDecroissant();
+        }else {
+            // récentes
+            all = getAllRecent();
+        }
+        return all;
+
+    }
 
 
 }

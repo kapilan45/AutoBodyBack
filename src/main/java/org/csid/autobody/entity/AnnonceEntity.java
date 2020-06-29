@@ -109,7 +109,7 @@ public class AnnonceEntity {
     private String airFilter;
 
     @Column(name = "firstHand")
-    private String firstHand;
+    private boolean firstHand;
 
     @Column(name = "price")
     private double price;
@@ -231,11 +231,11 @@ public class AnnonceEntity {
         this.inSideColor = inSideColor;
     }
 
-    public String getFirstHand() {
+    public boolean isFirstHand() {
         return firstHand;
     }
 
-    public void setFirstHand(String firstHand) {
+    public void setFirstHand(boolean firstHand) {
         this.firstHand = firstHand;
     }
 
