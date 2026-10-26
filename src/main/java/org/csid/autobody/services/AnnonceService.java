@@ -7,14 +7,17 @@ import org.csid.autobody.specifications.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -40,15 +43,20 @@ public class AnnonceService {
 
     public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
 
+        UserEntity user = userService.getUserByToken(userToken);
+        if (annonceDto.getId() != null) {
+            AnnonceEntity existingAnnonce = annonceRepository.findById(annonceDto.getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            ensureOwner(existingAnnonce, user);
+        }
+
         List<ImageEntity> images = imageService.getImages(annonceDto.getImages());
         AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
         MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
         ModelEntity model = modelRepository.findByModel(annonceDto.getModel());
         CategoryEntity category = categoryRepository.findByCategory(annonceDto.getCategory());
 
-        UserEntity u = userService.getUserByToken(userToken);
-
-        annonce.setUser(u);
+        annonce.setUser(user);
         annonce.setMake(make);
         annonce.setModel(model);
         annonce.setCategory(category);
@@ -59,9 +67,18 @@ public class AnnonceService {
     }
 
     public List<AnnonceDto> deleteAnnonce(AnnonceDto annonceDto, String authorization) {
-        AnnonceEntity annonce = annonceRepository.getOne(annonceDto.getId());
+        UserEntity user = userService.getUserByToken(authorization);
+        AnnonceEntity annonce = annonceRepository.findById(annonceDto.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ensureOwner(annonce, user);
         annonceRepository.delete(annonce);
-        return getAllByUser(authorization);
+        return DtoConverter.mapAsList(annonceRepository.findAllByUser(user), AnnonceDto.class);
+    }
+
+    private void ensureOwner(AnnonceEntity annonce, UserEntity user) {
+        if (annonce.getUser() == null || !Objects.equals(annonce.getUser().getId(), user.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
     }
 
     public List<AnnonceDto> getAll() {
