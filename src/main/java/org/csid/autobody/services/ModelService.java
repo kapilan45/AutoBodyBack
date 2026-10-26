@@ -26,7 +26,6 @@ public class ModelService {
 
     public List<ModelDto> getModelsWithMake(MakeEntity make) {
         List<ModelEntity> models = modelRepository.findAllByMake(make);
-        System.out.println(models.size());
         return DtoConverter.mapAsList(models, ModelDto.class);
     }
 

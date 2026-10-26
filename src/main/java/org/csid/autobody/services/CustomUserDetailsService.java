@@ -1,52 +1,44 @@
 package org.csid.autobody.services;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import org.csid.autobody.controller.DtoConverter;
-import org.csid.autobody.dto.AnnonceDto;
-import org.csid.autobody.entity.AnnonceEntity;
-import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
-import org.csid.autobody.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public CustomUserDetailsService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username.trim().isEmpty()) {
-            throw new UsernameNotFoundException("username is empty");
+        if (username == null || username.isBlank()) {
+            throw new UsernameNotFoundException("Username is required");
         }
 
-        UserEntity user = userService.findByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + username + " not found");
+        UserEntity user;
+        try {
+            user = userService.findByUsername(username);
+        } catch (org.springframework.web.server.ResponseStatusException exception) {
+            throw new UsernameNotFoundException("User not found", exception);
         }
-
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), getGrantedAuthorities(user));
-    }
-
-    private List<GrantedAuthority> getGrantedAuthorities(UserEntity user) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        RoleEntity role = user.getRole();
-        authorities.add(new SimpleGrantedAuthority(role.getRole()));
-        return authorities;
+        if (user.getRole() == null || user.getRole().getRole() == null) {
+            throw new UsernameNotFoundException("User role is not configured");
+        }
+        return User.withUsername(user.getUsername())
+                .password(user.getPassword())
+                .authorities(List.of(new SimpleGrantedAuthority(user.getRole().getRole())))
+                .build();
     }
 }
-

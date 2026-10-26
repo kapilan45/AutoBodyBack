@@ -1,12 +1,19 @@
 package org.csid.autobody.controller;
 
-import org.csid.autobody.dto.*;
-import org.csid.autobody.services.*;
-import org.springframework.web.bind.annotation.*;
+import org.csid.autobody.dto.AnnonceDto;
 import org.csid.autobody.entity.AnnonceEntity;
+import org.csid.autobody.services.AnnonceService;
 import org.csid.autobody.specifications.AnnoncesSpecificationsBuilder;
-import org.csid.autobody.specifications.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,36 +29,34 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
-
     @GetMapping
-    public List<AnnonceDto> getAllRecent(){
+    public List<AnnonceDto> getAllRecent() {
         return annonceService.getAllRecent();
     }
 
-
     @GetMapping("/user")
-    public List<AnnonceDto> getAllByUser(@RequestHeader("Authorization") String authorization) {
-        return annonceService.getAllByUser(authorization);
+    public List<AnnonceDto> getAllByUser() {
+        return annonceService.getAllByUser();
     }
 
     @PostMapping("/save")
-    public void saveAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
-        this.annonceService.saveAnnonce(annonceDto, authorization);
+    public void saveAnnonce(@RequestBody AnnonceDto annonceDto) {
+        annonceService.saveAnnonce(annonceDto);
     }
 
     @GetMapping("/basicfilter")
-    public List<AnnonceDto> basicFilter(@RequestParam("basicFilter") String filter){
-        return this.annonceService.getBasicFiltredAnnonce(filter);
+    public List<AnnonceDto> basicFilter(@RequestParam("basicFilter") String filter) {
+        return annonceService.getBasicFiltredAnnonce(filter);
     }
 
     @PutMapping("/delete")
-    public List<AnnonceDto> deleteAnnonce(@RequestBody AnnonceDto annonceDto, @RequestHeader("Authorization") String authorization){
-        return this.annonceService.deleteAnnonce(annonceDto, authorization);
+    public List<AnnonceDto> deleteAnnonce(@RequestBody AnnonceDto annonceDto) {
+        return annonceService.deleteAnnonce(annonceDto);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/filtre")
     @ResponseBody
-    public List<AnnonceDto> getAnnonceFiltred(@RequestParam(value = "search") String search ) {
+    public List<AnnonceDto> getAnnonceFiltered(@RequestParam(value = "search") String search) {
         AnnoncesSpecificationsBuilder builder = new AnnoncesSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(search + ",");
@@ -59,15 +64,9 @@ public class AnnonceController {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
 
-        builder = this.annonceService.mapAnnonceObjects(builder);
-
-        for (SearchCriteria searchCriteria : builder.getParams()) {
-            System.out.println(searchCriteria.getKey() + " : " + searchCriteria.getValue());
-        }
-
+        builder = annonceService.mapAnnonceObjects(builder);
         Specification<AnnonceEntity> spec = builder.build();
-
-        List<AnnonceEntity> all = this.annonceService.getAnnonceFiltered(spec);
+        List<AnnonceEntity> all = annonceService.getAnnonceFiltered(spec);
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 }
