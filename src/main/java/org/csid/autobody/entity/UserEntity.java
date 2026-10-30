@@ -2,8 +2,8 @@ package org.csid.autobody.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "t_user")
@@ -12,13 +12,15 @@ public class UserEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
+    @SequenceGenerator(name = "user_id_sequence", sequenceName = "hibernate_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "username", length = 75)
     private String username;
 
     @Column(name = "password", length = 75)
+    @JsonIgnore
     private String password;
 
     @Column(name = "stat")

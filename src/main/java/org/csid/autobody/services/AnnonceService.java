@@ -8,13 +8,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.csid.autobody.entity.*;
 import org.csid.autobody.repository.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -25,33 +22,47 @@ public class AnnonceService {
 
     private final AnnonceRepository annonceRepository;
     private final CategoryRepository categoryRepository;
-    private final UserRepository userRepository;
     private final MakeRepository makeRepository;
     private final ModelRepository modelRepository;
     private final UserService userService;
     private final ImageService imageService;
 
-    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository, UserRepository userRepository, MakeRepository makeRepository, ModelRepository modelRepository, UserService userService, ImageService imageService) {
+    public AnnonceService(AnnonceRepository annonceRepository, CategoryRepository categoryRepository,
+                          MakeRepository makeRepository, ModelRepository modelRepository,
+                          UserService userService, ImageService imageService) {
         this.annonceRepository = annonceRepository;
         this.categoryRepository = categoryRepository;
-        this.userRepository = userRepository;
         this.makeRepository = makeRepository;
         this.modelRepository = modelRepository;
         this.userService = userService;
         this.imageService = imageService;
     }
 
-    public void saveAnnonce(AnnonceDto annonceDto, String userToken) {
-
-        UserEntity user = userService.getUserByToken(userToken);
+    public void saveAnnonce(AnnonceDto annonceDto) {
+        if (annonceDto == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Announcement is required");
+        }
+        UserEntity user = userService.getAuthenticatedUser();
+        AnnonceEntity existingAnnonce = null;
         if (annonceDto.getId() != null) {
-            AnnonceEntity existingAnnonce = annonceRepository.findById(annonceDto.getId())
+            existingAnnonce = annonceRepository.findById(annonceDto.getId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             ensureOwner(existingAnnonce, user);
         }
 
-        List<ImageEntity> images = imageService.getImages(annonceDto.getImages());
-        AnnonceEntity annonce = DtoConverter.map(annonceDto, AnnonceEntity.class);
+        List<ImageEntity> previousImages = existingAnnonce == null || existingAnnonce.getImages() == null
+                ? List.of()
+                : existingAnnonce.getImages();
+        List<ImageEntity> images = annonceDto.getImages() == null && existingAnnonce != null
+                ? previousImages
+                : imageService.getImages(annonceDto.getImages(), user.getUsername(), annonceDto.getId());
+        List<ImageEntity> detachedImages = previousImages.stream()
+                .filter(previous -> images.stream().noneMatch(image -> image.getId().equals(previous.getId())))
+                .toList();
+        detachedImages.forEach(image -> image.setAnnonce(null));
+        imageService.saveImages(detachedImages);
+        AnnonceEntity annonce = existingAnnonce == null ? new AnnonceEntity() : existingAnnonce;
+        DtoConverter.copyAnnonceFields(annonceDto, annonce);
         MakeEntity make = makeRepository.findByMake(annonceDto.getMake());
         ModelEntity model = modelRepository.findByModel(annonceDto.getModel());
         CategoryEntity category = categoryRepository.findByCategory(annonceDto.getCategory());
@@ -61,16 +72,25 @@ public class AnnonceService {
         annonce.setModel(model);
         annonce.setCategory(category);
         annonce.setImages(images);
+        if (images != null) {
+            images.forEach(image -> image.setAnnonce(annonce));
+        }
 
         annonce.setPublishedDate(new Date());
         this.annonceRepository.save(annonce);
     }
 
-    public List<AnnonceDto> deleteAnnonce(AnnonceDto annonceDto, String authorization) {
-        UserEntity user = userService.getUserByToken(authorization);
+    public List<AnnonceDto> deleteAnnonce(AnnonceDto annonceDto) {
+        if (annonceDto == null || annonceDto.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Announcement identifier is required");
+        }
+        UserEntity user = userService.getAuthenticatedUser();
         AnnonceEntity annonce = annonceRepository.findById(annonceDto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         ensureOwner(annonce, user);
+        List<ImageEntity> images = annonce.getImages() == null ? List.of() : annonce.getImages();
+        images.forEach(image -> image.setAnnonce(null));
+        imageService.saveImages(images);
         annonceRepository.delete(annonce);
         return DtoConverter.mapAsList(annonceRepository.findAllByUser(user), AnnonceDto.class);
     }
@@ -106,15 +126,15 @@ public class AnnonceService {
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
-    public List<AnnonceDto> getAllByUser(String userToken) {
-        UserEntity user = userService.getUserByToken(userToken);
+    public List<AnnonceDto> getAllByUser() {
+        UserEntity user = userService.getAuthenticatedUser();
         List<AnnonceEntity> all = annonceRepository.findAllByUser(user);
         return DtoConverter.mapAsList(all, AnnonceDto.class);
     }
 
 
 
-    public List<AnnonceEntity> getAnnonceFiltered(Specification annonceSpecification) {
+    public List<AnnonceEntity> getAnnonceFiltered(Specification<AnnonceEntity> annonceSpecification) {
         return annonceRepository.findAll(annonceSpecification);
     }
 

@@ -1,13 +1,14 @@
 package org.csid.autobody.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_role")
 public class RoleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_sequence")
+    @SequenceGenerator(name = "role_id_sequence", sequenceName = "hibernate_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "role", length = 65)
