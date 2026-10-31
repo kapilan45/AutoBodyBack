@@ -5,7 +5,7 @@ Backend API for the AutoBody marketplace.
 ## Runtime
 
 - Spring Boot 4.1.2 (latest stable release selected for this migration)
-- Java 17 or newer
+- Java 21 or newer
 - Maven 3.6.3 or newer
 - PostgreSQL
 
