@@ -4,6 +4,7 @@ public class UploadDto {
 
     private Long id;
     private byte[] path;
+    private String contentType;
 
     public UploadDto() {
     }
@@ -22,5 +23,13 @@ public class UploadDto {
 
     public void setPath(byte[] path) {
         this.path = path;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }

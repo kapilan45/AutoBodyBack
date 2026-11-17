@@ -1,140 +1,122 @@
 package org.csid.autobody.services;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import org.csid.autobody.controller.DtoConverter;
 import org.csid.autobody.dto.UserDto;
 import org.csid.autobody.entity.RoleEntity;
 import org.csid.autobody.entity.UserEntity;
+import org.csid.autobody.repository.AnnonceRepository;
+import org.csid.autobody.repository.ImageRepository;
 import org.csid.autobody.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 @Service
 @Transactional
 public class UserService {
 
-    public static final String SECRET = "SecretKeyToGenJWTs";
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final AnnonceRepository annonceRepository;
+    private final ImageRepository imageRepository;
     private final RoleService roleService;
 
-    public UserService(RoleService roleService) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository,
+                       AnnonceRepository annonceRepository, ImageRepository imageRepository,
+                       RoleService roleService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.annonceRepository = annonceRepository;
+        this.imageRepository = imageRepository;
         this.roleService = roleService;
     }
 
-    public UserEntity findByUsername(String username){
-        UserEntity user = null;
-        try{
-            user = userRepository.findByUsername(username);
-        } catch (Exception e){
-            throw e;
+    @Transactional(readOnly = true)
+    public UserEntity findByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
         return user;
     }
 
-    public UserEntity getUserByToken(String userToken) {
-        String username = getUserNameWithToken(userToken);
-
-        return findByUsername(username);
-    }
-
-
-
-    public void changePassword(String oldPassword, String newPassword){
+    @Transactional(readOnly = true)
+    public UserEntity getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        UserEntity currentUser = findByUsername(currentPrincipalName);
-
-        System.out.println(currentUser.getPassword());
-        System.out.println(oldPassword);
-
-        if(passwordEncoder.matches(oldPassword,currentUser.getPassword())){
-            userRepository.changePassword(passwordEncoder.encode(newPassword),currentUser.getId());
-        }else
-            System.out.println("Password doesn't match");
-    }
-
-
-
-    public List<String> findAllUsernames(){
-        List<String> usernamesList= new ArrayList<>();
-
-        try{
-            usernamesList = userRepository.findAllUsername();
-        } catch (Exception e){
-            throw e;
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication instanceof AnonymousAuthenticationToken) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication is required");
         }
-
-        return usernamesList;
+        return findByUsername(authentication.getName());
     }
 
-    public void deleteUser(String username){
+    public void changePassword(String oldPassword, String newPassword) {
+        if (newPassword == null || newPassword.isBlank()
+                || newPassword.getBytes(StandardCharsets.UTF_8).length > 72) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New password is required and must not exceed 72 UTF-8 bytes");
+        }
+        UserEntity currentUser = getAuthenticatedUser();
+        if (oldPassword == null || !passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Current password is incorrect");
+        }
+        userRepository.changePassword(passwordEncoder.encode(newPassword), currentUser.getId());
+    }
 
+    @Transactional(readOnly = true)
+    public List<String> findAllUsernames() {
+        return userRepository.findAllUsername();
+    }
+
+    public void deleteUser(String username) {
         UserEntity deletingUser = findByUsername(username);
-        Long deletingUserId = deletingUser.getId();
-        userRepository.deleteUser(deletingUserId);
+        if (annonceRepository.existsByUser_Id(deletingUser.getId())
+                || imageRepository.existsByOwner_Id(deletingUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "User has announcements or images; remove those explicitly before deleting the account");
+        }
+        userRepository.delete(deletingUser);
     }
 
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-
-    public UserDto getCurrentUser(){
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String) auth.getPrincipal();
-        UserEntity u = userRepository.findByUsername(username);
-
-        return DtoConverter.map(u,UserDto.class);
+    @Transactional(readOnly = true)
+    public UserDto getCurrentUser() {
+        return DtoConverter.map(getAuthenticatedUser(), UserDto.class);
     }
 
     public UserDto save(UserDto userDto) {
+        if (userDto == null || userDto.getUsername() == null || userDto.getUsername().isBlank()
+                || userDto.getUsername().length() > 75 || userDto.getPassword() == null
+                || userDto.getPassword().isBlank()
+                || userDto.getPassword().getBytes(StandardCharsets.UTF_8).length > 72) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username and a valid password are required");
+        }
+        if (userDto.getMail() != null && userDto.getMail().length() > 150) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email address is too long");
+        }
+        if (userRepository.existsByUsernameIgnoreCase(userDto.getUsername())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username is already registered");
+        }
+        if (userDto.getMail() != null && !userDto.getMail().isBlank()
+                && userRepository.existsByMailIgnoreCase(userDto.getMail())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email address is already registered");
+        }
 
         UserEntity userEntity = DtoConverter.map(userDto, UserEntity.class);
-
-        userEntity.setPassword(getPasswordEncoder().encode(userEntity.getPassword()));
+        userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userEntity.setStat(false);
 
         RoleEntity role = roleService.findByRoleName("ROLE_USER");
         if (role == null) {
-        	// TODO create missing from empty db ?!!
-        	role = new RoleEntity();
-        	role.setRole("ROLE_USER");
-        	role = roleService.getRoleRepository().save(role);
+            throw new IllegalStateException("ROLE_USER must exist before registering users");
         }
-        
-        if(userEntity.getRole() == null) {
-            userEntity.setRole(role); // TODO change to use list ...
-        }
-        userEntity = this.userRepository.save(userEntity);
-        
-        UserDto res = DtoConverter.map(userEntity, UserDto.class);
-        return res;
+        userEntity.setRole(role);
+        return DtoConverter.map(userRepository.save(userEntity), UserDto.class);
     }
-
-    private String getUserNameWithToken(String token){
-        return JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                .build()
-                .verify(token)
-                .getSubject();
-    }
-
 }

@@ -22,4 +22,6 @@ public interface AnnonceRepository extends JpaRepository<AnnonceEntity, Long>,Jp
 
     List<AnnonceEntity> findAllByUser(UserEntity user);
 
+    boolean existsByUser_Id(Long userId);
+
 }

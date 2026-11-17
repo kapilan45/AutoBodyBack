@@ -2,15 +2,17 @@ package org.csid.autobody.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "annonce")
 public class AnnonceEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annonce_id_sequence")
+    @SequenceGenerator(name = "annonce_id_sequence", sequenceName = "hibernate_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "maxSpeed")
@@ -47,8 +49,7 @@ public class AnnonceEntity {
     @Column(name = "stage")
     private int stage;
 
-    @Lob
-    @Column(name = "options")
+    @Column(name = "options", columnDefinition = "text")
     private String options;
 
     @Column(name = "gearbox")
@@ -130,7 +131,7 @@ public class AnnonceEntity {
     private String localisation;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "annonce", fetch = FetchType.LAZY)
     private List<ImageEntity> images;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

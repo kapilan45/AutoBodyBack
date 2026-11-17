@@ -1,10 +1,7 @@
 package org.csid.autobody.controller;
 
-import com.auth0.jwt.JWT;
 import org.csid.autobody.dto.UserDto;
-import org.csid.autobody.entity.UserEntity;
-import org.csid.autobody.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,69 +9,75 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwsHeader;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.Date;
-
-import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import java.time.Duration;
+import java.time.Instant;
 
 @RestController
-@Slf4j
 public class LoginController {
 
-    public static final long EXPIRATION_TIME = 3_600_000; // 10 days
     public static final String HEADER_STRING = "cache-control";
-	public static final String SECRET = "SecretKeyToGenJWTs";
 
-	private AuthenticationManager authenticationManager;
-	private UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtEncoder jwtEncoder;
+    private final Duration tokenLifetime;
 
-	public LoginController(AuthenticationManager authenticationManager, UserService userService) {
-		this.authenticationManager = authenticationManager;
-		this.userService = userService;
-	}
+    public LoginController(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder,
+                           @Value("${autobody.jwt.expiration:PT1H}") Duration tokenLifetime) {
+        if (tokenLifetime.isZero() || tokenLifetime.isNegative()) {
+            throw new IllegalArgumentException("autobody.jwt.expiration must be a positive duration");
+        }
+        this.authenticationManager = authenticationManager;
+        this.jwtEncoder = jwtEncoder;
+        this.tokenLifetime = tokenLifetime;
+    }
 
-	@PostMapping("/login")
-	public ResponseEntity<UserDto> login(@RequestBody UserDto req) {
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@Valid @RequestBody UserDto request) {
+        if (request.getUsername() == null || request.getUsername().isBlank()
+                || request.getPassword() == null || request.getPassword().isBlank()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserDto());
+        }
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    UsernamePasswordAuthenticationToken.unauthenticated(
+                            request.getUsername(), request.getPassword()));
+        } catch (AuthenticationException exception) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserDto());
+        }
 
-		String username = req.getUsername(), password = req.getPassword();
-		Authentication auth = new UsernamePasswordAuthenticationToken(username, password, null);
-		UserDto res = new UserDto();
-		try {
-			authenticationManager.authenticate(auth);
-		} catch(AuthenticationException ex) {
-			// failed to authenticate!
-			return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
-		}
+        Instant issuedAt = Instant.now();
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                .issuer("autobody")
+                .issuedAt(issuedAt)
+                .expiresAt(issuedAt.plus(tokenLifetime))
+                .subject(authentication.getName())
+                .claim("roles", authentication.getAuthorities().stream()
+                        .map(authority -> authority.getAuthority())
+                        .toList())
+                .build();
+        String token = jwtEncoder.encode(JwtEncoderParameters.from(
+                JwsHeader.with(MacAlgorithm.HS256).build(), claims)).getTokenValue();
 
-		if (!auth.isAuthenticated()) {
-			// failed to authenticate!
-			return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
-		}
+        UserDto response = new UserDto();
+        response.setRole(authentication.getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Authenticated user has no role")));
+        response.setUsername(authentication.getName());
 
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		HttpHeaders httpHeaders = new HttpHeaders();
-        // use JWT token ...
-		httpHeaders.add(HEADER_STRING, GenerateToken(username));
-
-        UserEntity user = userService.findByUsername(username);
-        res.setRole(user.getRole().getRole());
-		res.setUsername(user.getUsername());
-
-        return new ResponseEntity<>(res, httpHeaders, HttpStatus.OK);
-	}
-
-	private String GenerateToken(String username) {
-		return JWT.create()
-				.withSubject(username)
-				.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				.sign(HMAC512(SECRET.getBytes()));
-	}
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HEADER_STRING, token);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    }
 }
